@@ -1,4 +1,4 @@
-// JavaScript Interactivity for Cursor Clone & Extensions
+// JavaScript Interactivity for Stackly Clone & Extensions
 
 document.addEventListener('DOMContentLoaded', () => {
     initOSDetection();
@@ -25,14 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
 function initOSDetection() {
     const userAgent = window.navigator.userAgent.toLowerCase();
     let osName = 'Windows';
-    let downloadUrl = 'https://api2.cursor.sh/updates/download/golden/win32-x64-user/cursor/3.9';
+    let downloadUrl = '404.html';
 
     if (userAgent.indexOf('macintosh') !== -1 || userAgent.indexOf('mac os x') !== -1) {
         osName = 'macOS';
-        downloadUrl = 'https://api2.cursor.sh/updates/download/golden/darwin-universal/cursor/3.9';
     } else if (userAgent.indexOf('linux') !== -1) {
         osName = 'Linux';
-        downloadUrl = 'https://api2.cursor.sh/updates/download/golden/linux-x64/cursor/3.9';
     }
 
     // Update all download CTA labels and hrefs
@@ -351,7 +349,7 @@ document.getElementById(<span class="code-str">'theme-toggle-btn'</span>).addEve
         codeOutput.innerHTML = `<span class="code-comment">&lt;!-- Try out the interactive demo below by clicking a suggestion! --&gt;</span>
 &lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-str">"hero"</span>&gt;
     &lt;<span class="code-tag">h1</span>&gt;Coding at the speed of thought&lt;/<span class="code-tag">h1</span>&gt;
-    &lt;<span class="code-tag">p</span>&gt;Build ambitious apps with Cursor Agent.&lt;/<span class="code-tag">p</span>&gt;
+    &lt;<span class="code-tag">p</span>&gt;Build ambitious apps with Stackly Agent.&lt;/<span class="code-tag">p</span>&gt;
     &lt;<span class="code-tag">button</span>&gt;Get Started&lt;/<span class="code-tag">button</span>&gt;
 &lt;/<span class="code-div">div</span>&gt;`;
         updateLineNumbers(6);
@@ -401,7 +399,7 @@ document.getElementById(<span class="code-str">'theme-toggle-btn'</span>).addEve
 
         // Initialize terminal lines
         terminalBody.innerHTML = '';
-        addTerminalLine(`$ cursor --agent "${userInput}"`, 'system');
+        addTerminalLine(`$ stackly --agent "${userInput}"`, 'system');
 
         // Step-by-step state animations
         taskStatus.textContent = "Reading files...";

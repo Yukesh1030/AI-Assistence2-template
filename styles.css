@@ -1,4 +1,4 @@
-/* CSS Design System for Cursor Clone */
+/* CSS Design System for Stackly Clone */
 
 /* Theme Variables */
 :root {
@@ -2965,5 +2965,264 @@ html[data-theme="light"] .glass-form-card {
     .suggest-btn {
         padding: 2px 6px !important;
         font-size: 10px !important;
+    }
+}
+
+
+/* Custom dashboard panel layouts */
+.mockup-grid-pane {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 16px;
+    text-align: left;
+    height: 300px;
+}
+
+.collab-sidebar-pane {
+    border-right: 1px solid var(--border-color);
+    padding-right: 16px;
+}
+
+/* Small Mobile Viewport Responsiveness (down to 375px) */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+    
+    .hero-heading {
+        font-size: 1.85rem !important;
+        line-height: 1.25;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.75rem !important;
+    }
+    
+    .section-title-sm {
+        font-size: 1.5rem !important;
+    }
+    
+    .hero-ctas {
+        gap: 12px;
+        width: 100%;
+        max-width: 320px;
+    }
+    
+    .btn-hero-primary, .btn-hero-secondary, .btn-download-main {
+        padding: 12px 20px;
+        font-size: 14px;
+        text-align: center;
+        justify-content: center;
+        width: 100%;
+        display: block;
+        box-sizing: border-box;
+    }
+    
+    /* Pricing table responsiveness */
+    .comparison-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 24px;
+    }
+    
+    .comparison-table {
+        min-width: 550px;
+    }
+    
+    /* ROI Slider results stack on mobile */
+    .calc-results {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+    
+    /* Auth cards adjustments */
+    .glass-form-card {
+        padding: 28px 20px !important;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Sidebar dashboard tab updates */
+    .dashboard-sidebar {
+        padding: 16px 12px !important;
+        height: auto !important;
+        position: relative !important;
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+    
+    .dashboard-sidebar-header {
+        margin-bottom: 20px !important;
+        justify-content: center;
+    }
+    
+    .dashboard-nav {
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        gap: 8px !important;
+        padding-bottom: 8px !important;
+        width: 100% !important;
+        -webkit-overflow-scrolling: touch;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .dashboard-nav-item {
+        flex-shrink: 0;
+        width: auto !important;
+    }
+    
+    .dashboard-nav-btn {
+        padding: 8px 12px !important;
+        font-size: 13px !important;
+        white-space: nowrap;
+    }
+    
+    .dashboard-logout-btn {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        border-top: none !important;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+    }
+    
+    .dashboard-content {
+        padding: 20px 12px !important;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    /* Chat bubble dimensions on mobile */
+    .chat-bubble {
+        max-width: 85% !important;
+    }
+    
+    /* Prevent IDE Titlebar Overflow at 375px */
+    .ide-titlebar {
+        padding: 0 8px !important;
+    }
+    
+    .window-controls {
+        display: none !important;
+    }
+    
+    .ide-tab {
+        padding: 0 8px !important;
+        font-size: 11px !important;
+    }
+    
+    .ide-status-pill {
+        font-size: 10px !important;
+        padding-left: 4px;
+    }
+    
+    .editor-interactive-panel {
+        padding: 8px 10px !important;
+    }
+    
+    .prompt-input-wrapper {
+        padding: 6px !important;
+    }
+    
+    .prompt-textarea {
+        height: 40px !important;
+        font-size: 12px !important;
+    }
+    
+    .suggestions-row {
+        gap: 6px !important;
+    }
+    
+    .suggest-btn {
+        padding: 2px 6px !important;
+        font-size: 10px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .feature-grid, 
+    .features-grid, 
+    .testimonials-grid, 
+    .frontier-grid, 
+    .pricing-grid, 
+    .blog-grid, 
+    .automations-layout, 
+    .benefits-grid, 
+    .security-grid, 
+    .dashboard-grid,
+    .docs-grid,
+    .videos-grid,
+    .downloads-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .masonry-grid {
+        column-count: 1 !important;
+    }
+    
+    .mockup-grid-pane {
+        grid-template-columns: 1fr !important;
+        height: auto !important;
+    }
+    
+    .collab-sidebar-pane {
+        border-right: none !important;
+        border-bottom: 1px solid var(--border-color) !important;
+        padding-right: 0 !important;
+        padding-bottom: 16px !important;
+        margin-bottom: 16px !important;
+    }
+    
+    .mockup-img {
+        transform: none !important;
+        animation: none !important;
+    }
+    
+    .mockup-code {
+        white-space: pre-wrap !important;
+        word-break: break-all !important;
+    }
+    
+    /* Center Align Content on Mobile View */
+    .hero-text-block, 
+    .feature-headline-block, 
+    .automations-text, 
+    .frontier-intro, 
+    .text-center,
+    .product-hero,
+    .ent-hero,
+    .pricing-hero,
+    .res-hero,
+    .pricing-header,
+    .cta-content,
+    .site-footer {
+        text-align: center !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    .check-list {
+        display: inline-block !important;
+        text-align: left !important;
+        margin: 0 auto 24px !important;
+    }
+    
+    .hero-ctas, .cta-buttons {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
     }
 }
