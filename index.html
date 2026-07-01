@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor: AI Assistence</title>
+    <meta name="description" content="Built to make you extraordinarily productive, Cursor is the best AI coding agent.">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Cursor: AI coding agent">
+    <meta property="og:description" content="Built to make you extraordinarily productive, Cursor is the best AI coding agent.">
+    <meta property="og:image" content="assets/images/hero_dashboard.webp">
+    <meta property="og:url" content="https://cursor.com">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://cursor.com/marketing-static/favicon.ico">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header id="site-header" class="site-header">
+        <div class="nav-container">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo" id="nav-logo-link">
+                <img src="assets/logo (10).webp" alt="AI Assistant Logo" class="logo-img">
+            </a>
+            
+            <!-- Mid Navigation Links -->
+            <nav class="main-navigation" id="main-navigation">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="product.html" class="nav-link">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="enterprise.html" class="nav-link">Enterprise</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pricing.html" class="nav-link">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resources.html" class="nav-link">Resources</a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Right Actions (Sign In) -->
+            <div class="header-actions">
+                <a href="login.html" class="btn-signin nav-login-btn" id="btn-signin">Login</a>
+                
+                <!-- Mobile Navigation Toggle -->
+                <button class="mobile-menu-toggle" aria-label="Toggle Navigation" id="mobile-menu-toggle">
+                    <svg class="menu-open-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <svg class="menu-close-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Dropdown Menu -->
+        <div class="mobile-dropdown hidden" id="mobile-dropdown-menu">
+            <nav class="mobile-nav">
+                <ul class="mobile-nav-list">
+                    <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+                    <li><a href="product.html" class="mobile-nav-link">Product</a></li>
+                    <li><a href="enterprise.html" class="mobile-nav-link">Enterprise</a></li>
+                    <li><a href="pricing.html" class="mobile-nav-link">Pricing</a></li>
+                    <li><a href="resources.html" class="mobile-nav-link">Resources</a></li>
+                    <li><a href="login.html" class="mobile-nav-link mobile-login-cta">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+ 
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section aurora-section">
+            <div class="aurora-bg"></div>
+            <div class="hero-container">
+                <div class="hero-layout">
+                    <div class="hero-text-block">
+                        <h1 class="hero-heading">Build ambitious software with <br><span class="typing-text" data-words="AI Workspace.,Smart Chat.,AI Code Gen.,Workflow Automation."></span></h1>
+                        <p class="hero-subtitle">The next-generation AI productivity suite built to make you extraordinarily productive.</p>
+                        <div class="hero-ctas">
+                            <a href="404.html" class="btn-hero-primary">Get Started Free</a>
+                            <a href="404.html" class="btn-hero-secondary">Try Simulator <span class="btn-icon">→</span></a>
+                        </div>
+                    </div>
+                    <div class="hero-orb-block">
+                        <div class="orb-container">
+                            <div class="orb-glow-backdrop"></div>
+                            <canvas id="floating-ai-orb"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive IDE/Editor Mockup Simulation Section -->
+        <section class="ide-demo-section" id="ide-demo">
+            <div class="ide-demo-container">
+                <div class="ide-frame">
+                    <!-- Title Bar / Chrome Header -->
+                    <div class="ide-titlebar">
+                        <div class="window-controls">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="tabs-container">
+                            <button class="ide-tab active" id="tab-desktop-btn" data-target="ide-desktop-pane">
+                                Cursor Desktop
+                            </button>
+                            <button class="ide-tab" id="tab-cli-btn" data-target="ide-cli-pane">
+                                Cursor CLI
+                            </button>
+                        </div>
+                        <div class="ide-status-pill">
+                            <span class="pulse-indicator"></span>
+                            Agent Sim: Ready
+                        </div>
+                    </div>
+                    
+                    <!-- Main Body Interface -->
+                    <div class="ide-body">
+                        <!-- Desktop Workspace View -->
+                        <div class="ide-pane active" id="ide-desktop-pane">
+                            <div class="workspace-layout">
+                                <!-- Sidebar Files List -->
+                                <aside class="ide-sidebar">
+                                    <div class="sidebar-section">
+                                        <div class="sidebar-title">Agent Tasks</div>
+                                        <div class="task-rows">
+                                            <div class="task-row active" id="task-sidebar-landing">
+                                                <div class="task-icon"><svg width="12" height="12" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Z"></path></svg></div>
+                                                <div class="task-details">
+                                                    <div class="task-name">Build Landing Page</div>
+                                                    <div class="task-status" id="task-status-lbl">Idle</div>
+                                                </div>
+                                            </div>
+                                            <div class="task-row">
+                                                <div class="task-icon"><svg width="12" height="12" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Z"></path></svg></div>
+                                                <div class="task-details">
+                                                    <div class="task-name">Refactor Database</div>
+                                                    <div class="task-status">Queued</div>
+                                                </div>
+                                            </div>
+                                            <div class="task-row">
+                                                <div class="task-icon"><svg width="12" height="12" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Z"></path></svg></div>
+                                                <div class="task-details">
+                                                    <div class="task-name">Integrate OAuth</div>
+                                                    <div class="task-status">Queued</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="sidebar-section file-explorer">
+                                        <div class="sidebar-title">Explorer</div>
+                                        <ul class="file-list">
+                                            <li class="file-item file-html selected">index.html</li>
+                                            <li class="file-item file-css">styles.css</li>
+                                            <li class="file-item file-js">script.js</li>
+                                        </ul>
+                                    </div>
+                                </aside>
+                                
+                                <!-- Editor Workspace Center Panel -->
+                                <div class="ide-editor-area">
+                                    <div class="editor-header">
+                                        <span class="active-tab-file">index.html</span>
+                                        <span class="editor-mode-badge">Composer 2.5 Active</span>
+                                    </div>
+                                    <!-- Editor Window with lines -->
+                                    <div class="editor-window">
+                                        <div class="line-numbers" id="editor-line-numbers">
+                                            <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div>
+                                        </div>
+                                        <pre class="code-output" id="editor-code-output"><code><span class="code-comment">&lt;!-- Try out the interactive demo below by clicking a suggestion! --&gt;</span>
+&lt;<span class="code-tag">div</span> <span class="code-attr">class</span>=<span class="code-str">"hero"</span>&gt;
+    &lt;<span class="code-tag">h1</span>&gt;Coding at the speed of thought&lt;/<span class="code-tag">h1</span>&gt;
+    &lt;<span class="code-tag">p</span>&gt;Build ambitious apps with Cursor Agent.&lt;/<span class="code-tag">p</span>&gt;
+    &lt;<span class="code-tag">button</span>&gt;Get Started&lt;/<span class="code-tag">button</span>&gt;
+&lt;/<span class="code-div">div</span>&gt;</code></pre>
+                                    </div>
+                                    
+                                    <!-- Interactive Controller UI at Bottom of IDE -->
+                                    <div class="editor-interactive-panel">
+                                        <!-- Task Suggestions -->
+                                        <div class="suggestions-row">
+                                            <span class="suggest-label">Try prompt:</span>
+                                            <button class="suggest-btn" data-prompt="Build a glassmorphism landing page header">Header Design</button>
+                                            <button class="suggest-btn" data-prompt="Add responsive grid layout for projects">Projects Grid</button>
+                                            <button class="suggest-btn" data-prompt="Create an interactive dark theme switcher">Theme Switcher</button>
+                                        </div>
+                                        
+                                        <!-- Prompt Input Bar -->
+                                        <div class="prompt-input-wrapper">
+                                            <textarea class="prompt-textarea" placeholder="Instruct the agent to build, search, edit code..." id="sim-prompt-input"></textarea>
+                                            <div class="prompt-controls">
+                                                <div class="model-select">
+                                                    <span class="model-badge">Agent Mode</span>
+                                                    <span class="model-name">claude-3.5-sonnet</span>
+                                                </div>
+                                                <button class="prompt-submit-btn" id="sim-submit-btn">Run Agent</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Side Panel (Terminal, Web preview, or Task details) -->
+                                <aside class="ide-terminal-panel">
+                                    <div class="panel-header">
+                                        <span class="panel-tab active">Terminal</span>
+                                        <span class="panel-tab">Agent Logs</span>
+                                    </div>
+                                    <div class="terminal-body" id="ide-terminal-body">
+                                        <div class="term-line system">Terminal initialized. Ready.</div>
+                                        <div class="term-line">$ npm run dev</div>
+                                        <div class="term-line success">✓ Server running on http://localhost:3000</div>
+                                    </div>
+                                </aside>
+                            </div>
+                        </div>
+                        
+                        <!-- CLI Workspace View -->
+                        <div class="ide-pane" id="ide-cli-pane">
+                            <div class="cli-workspace">
+                                <div class="cli-header">
+                                    <span class="cli-title">cursor-cli - sh - 80×24</span>
+                                </div>
+                                <div class="cli-body" id="cli-output">
+                                    <div class="cli-line">Microsoft Windows [Version 10.0.22631]</div>
+                                    <div class="cli-line">(c) Microsoft Corporation. All rights reserved.</div>
+                                    <div class="cli-line">&nbsp;</div>
+                                    <div class="cli-line">C:\Projects\my-app&gt; curl -fsSL https://cursor.com/install.sh | sh</div>
+                                    <div class="cli-line info">Downloading Cursor CLI...</div>
+                                    <div class="cli-line progress">[========================================>] 100% (4.2 MB)</div>
+                                    <div class="cli-line success">Cursor CLI successfully installed!</div>
+                                    <div class="cli-line">&nbsp;</div>
+                                    <div class="cli-line">C:\Projects\my-app&gt; cursor --agent "Create a nextjs component that fetches stock prices"</div>
+                                    <div class="cli-line warning">→ Initializing Cursor Agent in C:\Projects\my-app...</div>
+                                    <div class="cli-line">Type "cursor --help" to view options. Run prompts directly to invoke.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Pillar Sections -->
+        <section class="features-overview" id="agents">
+            <div class="container section-container">
+                <div class="feature-headline-block">
+                    <span class="badge-accent">Cursor Agents</span>
+                    <h2 class="section-title">Agents turn ideas into code.</h2>
+                    <p class="section-subtitle font-sans">Hand off ambitious tasks (like refactoring components, implementing login flows, or updating dependencies) to Cursor. It explores code, runs tests, and debugs autonomously.</p>
+                    <a href="404.html" class="link-arrow">Learn about agentic development <span class="arrow">→</span></a>
+                </div>
+                
+                <div class="feature-grid">
+                    <!-- Feature Card 1 -->
+                    <div class="feature-card glass-panel animate-on-scroll">
+                        <div class="card-image-box">
+                            <img src="assets/images/ai_assistant_hud.webp" alt="Autonomous Workflow" class="card-img">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Works autonomously, runs in parallel</h3>
+                            <p class="card-text">Launch multiple tasks in parallel in background slots. Cursor reviews documentation, searches files, and iterates on fixes without blocking your active editor screen.</p>
+                            <a href="404.html" class="card-link">Learn about cloud agents →</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature Card 2 -->
+                    <div class="feature-card glass-panel animate-on-scroll">
+                        <div class="card-image-box">
+                            <img src="assets/images/coding_workspace.webp" alt="IDE tools integration" class="card-img">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">In every tool, at every step</h3>
+                            <p class="card-text">Access AI functions inside Cursor's built-in terminal, inline prompts (Cmd+K), side chat, or Composer. Automatically sync changes with your code repository pull requests.</p>
+                            <a href="404.html" class="card-link">Learn about integrations →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Secondary Automations Section -->
+        <section class="automations-section" id="automations">
+            <div class="container">
+                <div class="automations-layout">
+                    <div class="automations-text animate-on-scroll">
+                        <span class="badge-accent">Automations</span>
+                        <h2 class="section-title-sm">Schedules, triggers, and persistent checks.</h2>
+                        <p class="section-paragraph">Set up always-on agents that run automatically when code compiles, tests fail, or on recurring schedules. Keep your codebase clean, dependencies upgraded, and lints resolved without manual effort.</p>
+                        <ul class="check-list">
+                            <li><span class="check-mark">✓</span> Nightly security vulnerability scans</li>
+                            <li><span class="check-mark">✓</span> Automated unit test generation on PR creation</li>
+                            <li><span class="check-mark">✓</span> Continuous docstring and documentation updates</li>
+                        </ul>
+                        <a href="404.html" class="btn-link-pill">Learn about Automations →</a>
+                    </div>
+                    
+                    <!-- Simulated Code automation block (Mock UI) -->
+                    <div class="automations-mockup-container animate-on-scroll">
+                        <div class="automations-card">
+                            <div class="mockup-header">
+                                <span class="mockup-title">cron-config.json</span>
+                                <span class="badge-active">Active</span>
+                            </div>
+                            <pre class="mockup-code"><code>{
+  <span class="json-key">"schedule"</span>: <span class="json-str">"0 0 * * *"</span>, <span class="json-comment">// Every night</span>
+  <span class="json-key">"agent"</span>: {
+    <span class="json-key">"task"</span>: <span class="json-str">"Scan codebase for security alerts and patch packages"</span>,
+    <span class="json-key">"allowWrite"</span>: <span class="json-bool">true</span>,
+    <span class="json-key">"notify"</span>: [<span class="json-str">"slack"</span>, <span class="json-str">"email"</span>]
+  }
+}</code></pre>
+                            <div class="mockup-footer-action">
+                                <span class="log-status success">● Next run scheduled: Tonight 12:00 AM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Social Proof / Quotes Testimonials -->
+        <section class="testimonials-section">
+            <div class="container">
+                <h3 class="testimonials-heading">Loved by engineers worldwide</h3>
+                <div class="testimonials-grid">
+                    <!-- Quote 1 -->
+                    <blockquote class="testimonial-card">
+                        <p class="quote-text">“Cursor is extremely good. It allows me to build features in a few seconds that would normally take hours of context-switching.”</p>
+                        <cite class="quote-author">
+                            <span class="author-name">Greg Brockman</span>
+                            <span class="author-title">President, OpenAI</span>
+                        </cite>
+                    </blockquote>
+                    
+                    <!-- Quote 2 -->
+                    <blockquote class="testimonial-card">
+                        <p class="quote-text">“We are transitioning all of our engineering workflows to Cursor. The context understanding is leaps and bounds ahead of other AI editors.”</p>
+                        <cite class="quote-author">
+                            <span class="author-name">Patrick Collison</span>
+                            <span class="author-title">Co-Founder & CEO, Stripe</span>
+                        </cite>
+                    </blockquote>
+                    
+                    <!-- Quote 3 -->
+                    <blockquote class="testimonial-card">
+                        <p class="quote-text">“The inline Cmd+K and codebase index matching make me feel like I have superpowers. I can't imagine writing CSS or TypeScript without it.”</p>
+                        <cite class="quote-author">
+                            <span class="author-name">shadcn</span>
+                            <span class="author-title">Creator, shadcn/ui</span>
+                        </cite>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Stay on Frontier (Feature details) -->
+        <section class="frontier-section" id="enterprise">
+            <div class="container">
+                <div class="frontier-intro">
+                    <h2 class="section-title text-center">Built for performance and security.</h2>
+                </div>
+                
+                <div class="frontier-grid">
+                    <!-- Item 1 -->
+                    <div class="frontier-card">
+                        <div class="frontier-icon">⚡</div>
+                        <h3 class="frontier-card-title">Choose the best model</h3>
+                        <p class="frontier-card-desc">Switch between Claude 3.5 Sonnet, GPT-4o, Gemini 1.5 Pro, or fine-tuned custom models with a click. Choose the model best suited for your task.</p>
+                        <a href="404.html" class="frontier-link">Explore models ↗</a>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="frontier-card">
+                        <div class="frontier-icon">🔍</div>
+                        <h3 class="frontier-card-title">Complete codebase indexing</h3>
+                        <p class="frontier-card-desc">Cursor builds a localized vector database index of your code. AI can instantly search references, classes, files, and usages across thousands of lines.</p>
+                        <a href="404.html" class="frontier-link">Learn about indexing ↗</a>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="frontier-card">
+                        <div class="frontier-icon">🛡</div>
+                        <h3 class="frontier-card-title">Enterprise grade security</h3>
+                        <p class="frontier-card-desc">With privacy mode enabled, no data is stored or used for model training. Certified SOC 2 Type II with zero-trust data protection policies.</p>
+                        <a href="404.html" class="frontier-link">Explore enterprise security ↗</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Pricing Overview Section -->
+        <section class="pricing-section" id="pricing">
+            <div class="container">
+                <div class="pricing-header">
+                    <span class="badge-accent">Pricing Plans</span>
+                    <h2 class="section-title text-center">Pricing built to scale with you</h2>
+                    <p class="section-subtitle text-center">Start for free, upgrade as you need more power.</p>
+                </div>
+                
+                <div class="pricing-grid">
+                    <!-- Plan 1: Free -->
+                    <div class="pricing-card glass-panel">
+                        <div class="pricing-card-header">
+                            <h3 class="plan-name">Basic</h3>
+                            <p class="plan-desc">For hobbyists and individual developers</p>
+                            <div class="plan-price"><span class="price-val">$0</span><span class="price-freq">/month</span></div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><span class="feat-check">✓</span> 2,000 autocomplete completions</li>
+                            <li><span class="feat-check">✓</span> 50 slow premium AI chat questions</li>
+                            <li><span class="feat-check">✓</span> Standard codebase indexing</li>
+                            <li><span class="feat-check">✓</span> Community forum support</li>
+                        </ul>
+                        <a href="404.html" class="btn-plan-action">Get Started</a>
+                    </div>
+                    
+                    <!-- Plan 2: Pro -->
+                    <div class="pricing-card glass-panel popular">
+                        <div class="popular-badge">Most Popular</div>
+                        <div class="pricing-card-header">
+                            <h3 class="plan-name">Pro</h3>
+                            <p class="plan-desc">For professional developers who want speed</p>
+                            <div class="plan-price"><span class="price-val">$20</span><span class="price-freq">/month</span></div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><span class="feat-check">✓</span> <strong>Unlimited</strong> autocompletes</li>
+                            <li><span class="feat-check">✓</span> 500 fast premium AI queries</li>
+                            <li><span class="feat-check">✓</span> Unlimited slow premium requests</li>
+                            <li><span class="feat-check">✓</span> Advanced Codebase Indexing</li>
+                            <li><span class="feat-check">✓</span> 10 parallel background agent runs</li>
+                        </ul>
+                        <a href="404.html" class="btn-plan-action primary">Upgrade to Pro</a>
+                    </div>
+                    
+                    <!-- Plan 3: Business -->
+                    <div class="pricing-card glass-panel">
+                        <div class="pricing-card-header">
+                            <h3 class="plan-name">Business</h3>
+                            <p class="plan-desc">For teams requiring governance and billing</p>
+                            <div class="plan-price"><span class="price-val">$40</span><span class="price-freq">/user /mo</span></div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><span class="feat-check">✓</span> Everything in Pro plan</li>
+                            <li><span class="feat-check">✓</span> Centralized admin panel</li>
+                            <li><span class="feat-check">✓</span> SSO / SAML Authentication</li>
+                            <li><span class="feat-check">✓</span> Zero-data retention guarantee</li>
+                            <li><span class="feat-check">✓</span> Priority Slack and Email support</li>
+                        </ul>
+                        <a href="404.html" class="btn-plan-action">Contact Sales</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Changelog & Research Grid -->
+        <section class="changelog-section" id="changelog">
+            <div class="container">
+                <div class="changelog-header-row">
+                    <div>
+                        <h2 class="section-title-sm">Changelog & Product Updates</h2>
+                        <p class="section-paragraph-muted">Follow what is new in our latest releases.</p>
+                    </div>
+                    <a href="404.html" class="btn-secondary-link">See what's new in Cursor →</a>
+                </div>
+                
+                <div class="changelog-list">
+                    <!-- Release Item 1 -->
+                    <div class="changelog-item">
+                        <div class="changelog-meta">
+                            <span class="changelog-date">Jun 30, 2026</span>
+                            <span class="changelog-ver">v3.9.0</span>
+                        </div>
+                        <div class="changelog-content">
+                            <h4 class="changelog-title">MCP (Model Context Protocol) Support and Team Marketplaces</h4>
+                            <p class="changelog-desc">You can now hook up custom MCP servers inside Cursor settings, allowing your local agents to call external database tools, browser agents, and third-party APIs directly from your system.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Release Item 2 -->
+                    <div class="changelog-item">
+                        <div class="changelog-meta">
+                            <span class="changelog-date">May 15, 2026</span>
+                            <span class="changelog-ver">v3.8.2</span>
+                        </div>
+                        <div class="changelog-content">
+                            <h4 class="changelog-title">Introducing Composer 2.5 and Parallel Background Editing</h4>
+                            <p class="changelog-desc">Composer can now execute file creations, shell commands, and git commits simultaneously. Background tabs showcase files edited in real time.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Blog Grid Section -->
+        <section class="blog-section" id="blog">
+            <div class="container">
+                <div class="blog-header-row">
+                    <div>
+                        <h2 class="section-title-sm">Research & Engineering Blog</h2>
+                        <p class="section-paragraph-muted">Deep dives into AI engineering, developer productivity, and models.</p>
+                    </div>
+                    <a href="404.html" class="btn-secondary-link">View all blog posts →</a>
+                </div>
+                
+                <div class="blog-grid">
+                    <!-- Post 1 -->
+                    <article class="blog-card">
+                        <div class="blog-card-meta">
+                            <span class="blog-tag">Research</span>
+                            <span class="blog-readtime">8 min read</span>
+                        </div>
+                        <h3 class="blog-card-title">Reward hacking is swamping model intelligence gains</h3>
+                        <p class="blog-card-preview">An analytical look at how reinforcement learning loops optimize for syntax and benchmark outcomes rather than underlying logic comprehension, and how we patch this in code agents.</p>
+                        <div class="blog-card-footer">
+                            <span class="blog-author">By Anysphere Research</span>
+                            <span class="blog-date">June 12, 2026</span>
+                        </div>
+                    </article>
+                    
+                    <!-- Post 2 -->
+                    <article class="blog-card">
+                        <div class="blog-card-meta">
+                            <span class="blog-tag">Product</span>
+                            <span class="blog-readtime">5 min read</span>
+                        </div>
+                        <h3 class="blog-card-title">Build from anywhere with Cursor for iOS</h3>
+                        <p class="blog-card-preview">Review pull requests, request agent runs, and commit hotfixes to your repos from your mobile phone with our brand new companion app.</p>
+                        <div class="blog-card-footer">
+                            <span class="blog-author">By Product Team</span>
+                            <span class="blog-date">April 28, 2026</span>
+                        </div>
+                    </article>
+                    
+                    <!-- Post 3 -->
+                    <article class="blog-card">
+                        <div class="blog-card-meta">
+                            <span class="blog-tag">Engineering</span>
+                            <span class="blog-readtime">11 min read</span>
+                        </div>
+                        <h3 class="blog-card-title">A technical report on Composer 2 context windows</h3>
+                        <p class="blog-card-preview">How we scale semantic search embeddings and structure localized indexing context to supply Claude 3.5 Sonnet with 200k tokens of relevant file data efficiently.</p>
+                        <div class="blog-card-footer">
+                            <span class="blog-author">By Context Team</span>
+                            <span class="blog-date">March 10, 2026</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Final CTA Section -->
+        <section class="final-cta-section" id="download">
+            <div class="container text-center">
+                <h2 class="cta-title">Try Cursor now.</h2>
+                <p class="cta-subtitle">Experience the future of AI-assisted software creation.</p>
+                <div class="cta-buttons">
+                    <a href="404.html" class="btn-download-main btn-download-cta" id="cta-download-btn">
+                        Download for Windows 
+                        <span class="btn-icon">⤓</span>
+                    </a>
+                </div>
+                <div class="cta-small-text">Free to use. Optional upgrade to Pro.</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <!-- Col 0: Brand Logo -->
+            <div class="footer-brand-col">
+                <a href="index.html" class="footer-logo">
+                    <img src="assets/logo (10).webp" alt="AI Assistant Logo" class="footer-logo-img">
+                </a>
+                <p class="footer-brand-desc">Explore the Complete AI Productivity Suite built to make you extraordinarily productive.</p>
+            </div>
+            
+            <!-- Col 1: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Product</h5>
+                <ul class="footer-links-list">
+                    <li><a href="product.html">Product Suite</a></li>
+                    <li><a href="enterprise.html">Enterprise</a></li>
+                    <li><a href="pricing.html">Pricing Plans</a></li>
+                    <li><a href="404.html">Features</a></li>
+                    <li><a href="404.html">Developer CLI</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 2: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Resources</h5>
+                <ul class="footer-links-list">
+                    <li><a href="resources.html">Docs & SDKs</a></li>
+                    <li><a href="404.html">Blog Feed</a></li>
+                    <li><a href="404.html">API Reference</a></li>
+                    <li><a href="404.html">Changelog</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 3: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Company</h5>
+                <ul class="footer-links-list">
+                    <li><a href="404.html">About Us</a></li>
+                    <li><a href="404.html">Careers</a></li>
+                    <li><a href="404.html">Press Kit</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 4: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Connect</h5>
+                <ul class="footer-links-list" style="display: flex; gap: 12px; margin-top: 8px;">
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/twitter.webp" alt="Twitter" class="social-icon">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/linkedin.webp" alt="LinkedIn" class="social-icon">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/facebook.webp" alt="Facebook" class="social-icon">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/instagram.webp" alt="Instagram" class="social-icon">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <div class="footer-bottom-left">
+                <span class="copyright">© 2026 AI Assistant, Inc.</span>
+                <a href="404.html" class="legal-link">Terms</a>
+                <a href="404.html" class="legal-link">Privacy</a>
+                <span class="badge-soc">SOC 2 Type II Certified</span>
+            </div>
+            
+            <div class="footer-bottom-right">
+                <!-- Theme Switcher Removed -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>

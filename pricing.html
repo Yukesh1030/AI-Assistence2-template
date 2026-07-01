@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plans & Pricing - AI Assistant Platform</title>
+    <meta name="description" content="Flexible pricing plans designed for individual developers, scaling start-ups, and global enterprises.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom section overrides for pricing page */
+        .pricing-hero {
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+        
+        .pricing-cards-section {
+            padding: 40px 0 100px;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 1040px;
+            margin: 0 auto;
+        }
+        
+        .price-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px 32px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+        }
+        
+        .price-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.08);
+        }
+        
+        .price-card.featured {
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 30px rgba(56, 189, 248, 0.05);
+        }
+        
+        .price-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px; left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-color);
+            color: #000000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .price-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 20px 0;
+            color: var(--text-primary);
+        }
+        
+        .price-features-list {
+            list-style: none;
+            margin: 32px 0;
+            flex-grow: 1;
+        }
+        
+        .price-features-list li {
+            margin-bottom: 14px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .comparison-section {
+            padding: 100px 0;
+            background-color: var(--bg-page);
+        }
+        
+        .comparison-table-wrapper {
+            max-width: 900px;
+            margin: 48px auto 0;
+            overflow-x: auto;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .comparison-table th {
+            font-family: var(--font-heading);
+            font-weight: 600;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: var(--bg-card-hover);
+        }
+        
+        .calculator-section {
+            padding: 100px 0;
+        }
+        
+        .faq-section {
+            padding: 100px 0;
+            background-color: var(--bg-page);
+        }
+        
+        .pricing-cta-section {
+            padding: 120px 0;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-page) 0%, #0c0d12 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header id="site-header" class="site-header">
+        <div class="nav-container">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo" id="nav-logo-link">
+                <img src="assets/logo (10).webp" alt="AI Assistant Logo" class="logo-img">
+            </a>
+            
+            <!-- Mid Navigation Links -->
+            <nav class="main-navigation" id="main-navigation">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="product.html" class="nav-link">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="enterprise.html" class="nav-link">Enterprise</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pricing.html" class="nav-link active">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resources.html" class="nav-link">Resources</a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Right Actions (Sign In) -->
+            <div class="header-actions">
+                <a href="login.html" class="btn-signin nav-login-btn" id="btn-signin">Login</a>
+                
+                <!-- Mobile Navigation Toggle -->
+                <button class="mobile-menu-toggle" aria-label="Toggle Navigation" id="mobile-menu-toggle">
+                    <svg class="menu-open-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <svg class="menu-close-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Dropdown Menu -->
+        <div class="mobile-dropdown hidden" id="mobile-dropdown-menu">
+            <nav class="mobile-nav">
+                <ul class="mobile-nav-list">
+                    <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+                    <li><a href="product.html" class="mobile-nav-link">Product</a></li>
+                    <li><a href="enterprise.html" class="mobile-nav-link">Enterprise</a></li>
+                    <li><a href="pricing.html" class="mobile-nav-link">Pricing</a></li>
+                    <li><a href="resources.html" class="mobile-nav-link">Resources</a></li>
+                    <li><a href="login.html" class="mobile-nav-link mobile-login-cta">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- 1. Pricing Hero Section -->
+        <section class="pricing-hero">
+            <div class="container">
+                <h1 class="hero-heading">Choose the Right Plan</h1>
+                <p class="hero-subtitle">Get private, context-aware AI tools scaled perfectly for you and your team.</p>
+            </div>
+        </section>
+
+        <!-- 2. Pricing Cards -->
+        <section class="pricing-cards-section">
+            <div class="container">
+                <div class="pricing-grid">
+                    <!-- Starter Plan -->
+                    <div class="price-card animate-on-scroll">
+                        <h3>Starter</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; margin-top: 6px;">For individual hobbyists</p>
+                        <div class="price-amount">$0<span style="font-size: 14px; color: var(--text-muted); font-weight: 400;"> / free forever</span></div>
+                        <ul class="price-features-list">
+                            <li><span>✔</span> Basic autocomplete</li>
+                            <li><span>✔</span> 50 chat messages / mo</li>
+                            <li><span>✔</span> Community forum help</li>
+                            <li><span>✔</span> Standard context window</li>
+                        </ul>
+                        <a href="404.html" class="btn-hero-secondary" style="text-align: center;">Get Started</a>
+                    </div>
+                    
+                    <!-- Professional Plan -->
+                    <div class="price-card featured animate-on-scroll">
+                        <h3>Professional</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; margin-top: 6px;">For scaling developers</p>
+                        <div class="price-amount">$20<span style="font-size: 14px; color: var(--text-muted); font-weight: 400;"> / user / month</span></div>
+                        <ul class="price-features-list">
+                            <li><span>✔</span> Fast premium completions</li>
+                            <li><span>✔</span> Unlimited smart chat queries</li>
+                            <li><span>✔</span> Upload documentation files</li>
+                            <li><span>✔</span> Image representation input</li>
+                            <li><span>✔</span> Priority support desk</li>
+                        </ul>
+                        <a href="404.html" class="btn-hero-primary" style="text-align: center;">Upgrade to Pro</a>
+                    </div>
+                    
+                    <!-- Enterprise Plan -->
+                    <div class="price-card animate-on-scroll">
+                        <h3>Enterprise</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; margin-top: 6px;">For security-first teams</p>
+                        <div class="price-amount">Custom<span style="font-size: 14px; color: var(--text-muted); font-weight: 400;"> / annual contracts</span></div>
+                        <ul class="price-features-list">
+                            <li><span>✔</span> Isolated GPU environments</li>
+                            <li><span>✔</span> Zero-retention private data policy</li>
+                            <li><span>✔</span> Custom integrations (Jira/Slack)</li>
+                            <li><span>✔</span> Single Sign-On (SSO)</li>
+                            <li><span>✔</span> Dedicated Account Manager</li>
+                        </ul>
+                        <a href="404.html" class="btn-hero-secondary" style="text-align: center;">Book Demo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Feature Comparison -->
+        <section class="comparison-section">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto 40px;">
+                    <h2 class="section-title">Feature Comparison</h2>
+                    <p class="section-subtitle">A granular review of active models, boundaries, and security policies.</p>
+                </div>
+                
+                <div class="comparison-table-wrapper animate-on-scroll">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Starter</th>
+                                <th>Professional</th>
+                                <th>Enterprise</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Monthly AI Completions</td>
+                                <td>Basic (2,000)</td>
+                                <td>Unlimited Premium</td>
+                                <td>Dedicated GPU Priority</td>
+                            </tr>
+                            <tr>
+                                <td>Available Models</td>
+                                <td>Standard</td>
+                                <td>Claude 3.5 / Gemini 1.5</td>
+                                <td>Custom Fine-Tuning</td>
+                            </tr>
+                            <tr>
+                                <td>File Upload Scopes</td>
+                                <td>❌ Not available</td>
+                                <td>✔ Up to 100MB</td>
+                                <td>✔ Unlimited sizing</td>
+                            </tr>
+                            <tr>
+                                <td>Zero Data Retention</td>
+                                <td>❌ No</td>
+                                <td>❌ No</td>
+                                <td>✔ Yes (SOC 2 Guarded)</td>
+                            </tr>
+                            <tr>
+                                <td>Shared Team Prompts</td>
+                                <td>❌ No</td>
+                                <td>❌ No</td>
+                                <td>✔ Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Support Channels</td>
+                                <td>Forum only</td>
+                                <td>Email within 24h</td>
+                                <td>Dedicated Slack / 2h SLA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. ROI Calculator -->
+        <section class="calculator-section">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto 40px;">
+                    <h2 class="section-title">Calculate Your Team's ROI</h2>
+                    <p class="section-subtitle">Adjust the team slider below to project monthly time and money saved using our AI suite.</p>
+                </div>
+                
+                <!-- Calculator widget -->
+                <div class="calc-card animate-on-scroll">
+                    <div style="font-weight: 600; font-size: 18px; margin-bottom: 24px; text-align: center;">💸 Team Savings Estimator</div>
+                    
+                    <div class="calc-slider-group">
+                        <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px;">
+                            <span>Engineering Team Size</span>
+                            <span style="font-weight: 600; color: var(--accent-color);"><span id="calc-team-count">10</span> developers</span>
+                        </div>
+                        <input type="range" min="1" max="100" value="10" class="calc-slider">
+                    </div>
+                    
+                    <div class="calc-results">
+                        <div class="stat-card" style="text-align: center;">
+                            <span class="stat-title">Hours Saved / Month</span>
+                            <div class="stat-val" id="calc-hours-saved" style="font-size: 24px; color: var(--accent-color);">240 hrs</div>
+                        </div>
+                        <div class="stat-card" style="text-align: center;">
+                            <span class="stat-title">Monthly Money Saved</span>
+                            <div class="stat-val" id="calc-dollars-saved" style="font-size: 24px; color: #27c93f;">$15,600</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. FAQ Accordion -->
+        <section class="faq-section">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto 40px;">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <p class="section-subtitle">Answers to common inquiries regarding pricing models, user billing, and licenses.</p>
+                </div>
+                
+                <!-- Accordion FAQs -->
+                <div class="faq-accordion">
+                    <div class="faq-item animate-on-scroll">
+                        <button class="faq-trigger">
+                            <span>How does the Pro trial billing work?</span>
+                            <span class="faq-icon">↓</span>
+                        </button>
+                        <div class="faq-content">
+                            <p>You can sign up for Pro with a 14-day free trial. If you do not cancel within 14 days, you will be billed $20/month. You can cancel at any time directly in your profile settings dashboard.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item animate-on-scroll">
+                        <button class="faq-trigger">
+                            <span>Do you offer team discounts?</span>
+                            <span class="faq-icon">↓</span>
+                        </button>
+                        <div class="faq-content">
+                            <p>Yes! For teams of 15 or more, we offer discounted seat prices starting at $15/user/month. Contact our billing representatives to get a coupon code for your organization.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item animate-on-scroll">
+                        <button class="faq-trigger">
+                            <span>Can we run custom fine-tuned models?</span>
+                            <span class="faq-icon">↓</span>
+                        </button>
+                        <div class="faq-content">
+                            <p>Absolutely. Custom model training and weights fine-tuning is supported exclusively on our Enterprise tier plans, allowing you to load specific repository files for semantic adaptation.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item animate-on-scroll">
+                        <button class="faq-trigger">
+                            <span>Is my source code secure?</span>
+                            <span class="faq-icon">↓</span>
+                        </button>
+                        <div class="faq-content">
+                            <p>Yes. Professional and Starter plans process requests transiently without logging code. Enterprise plans add a legally binding zero-data-retention guarantee, ensuring your code files never write to storage.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Pricing CTA -->
+        <section class="pricing-cta-section">
+            <div class="container">
+                <h2 class="hero-heading" style="font-size: 3rem; margin-bottom: 16px;">Start Coding Smarter Today</h2>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 32px; font-size: 1.1rem;">Sign up for a free starter profile or trial our pro subscription with a 14-day risk-free plan.</p>
+                <div style="display: flex; justify-content: center; gap: 16px;">
+                    <a href="404.html" class="btn-hero-primary">Start Free Today</a>
+                    <a href="404.html" class="btn-hero-secondary">Enterprise Demo</a>
+                </div>
+            </div>
+        </section>
+    </main>
+ 
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <!-- Col 0: Brand Logo -->
+            <div class="footer-brand-col">
+                <a href="index.html" class="footer-logo">
+                    <img src="assets/logo (10).webp" alt="AI Assistant Logo" class="footer-logo-img">
+                </a>
+                <p class="footer-brand-desc">Explore the Complete AI Productivity Suite built to make you extraordinarily productive.</p>
+            </div>
+            
+            <!-- Col 1: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Product</h5>
+                <ul class="footer-links-list">
+                    <li><a href="product.html">Product Suite</a></li>
+                    <li><a href="enterprise.html">Enterprise</a></li>
+                    <li><a href="pricing.html">Pricing Plans</a></li>
+                    <li><a href="404.html">Features</a></li>
+                    <li><a href="404.html">Developer CLI</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 2: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Resources</h5>
+                <ul class="footer-links-list">
+                    <li><a href="resources.html">Docs & SDKs</a></li>
+                    <li><a href="404.html">Blog Feed</a></li>
+                    <li><a href="404.html">API Reference</a></li>
+                    <li><a href="404.html">Changelog</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 3: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Company</h5>
+                <ul class="footer-links-list">
+                    <li><a href="404.html">About Us</a></li>
+                    <li><a href="404.html">Careers</a></li>
+                    <li><a href="404.html">Press Kit</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 4: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Connect</h5>
+                <ul class="footer-links-list" style="display: flex; gap: 12px; margin-top: 8px;">
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/twitter.webp" alt="Twitter" class="social-icon">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/linkedin.webp" alt="LinkedIn" class="social-icon">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/facebook.webp" alt="Facebook" class="social-icon">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/instagram.webp" alt="Instagram" class="social-icon">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <div class="footer-bottom-left">
+                <span class="copyright">© 2026 AI Assistant, Inc.</span>
+                <a href="404.html" class="legal-link">Terms</a>
+                <a href="404.html" class="legal-link">Privacy</a>
+                <span class="badge-soc">SOC 2 Type II Certified</span>
+            </div>
+            
+            <div class="footer-bottom-right">
+                <!-- Theme Switcher Removed -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>

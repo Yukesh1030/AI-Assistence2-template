@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - AI Assistant</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="dashboard-sidebar-header">
+                <img src="assets/logo (10).webp" alt="AI Assistant Brand Logo" class="dashboard-sidebar-logo">
+                <span class="dashboard-sidebar-title">Admin Console</span>
+            </div>
+            
+            <nav class="dashboard-nav">
+                <div class="dashboard-nav-item">
+                    <button class="dashboard-nav-btn active" data-target="pane-overview">
+                        <span>📊</span> Overview
+                    </button>
+                </div>
+                <div class="dashboard-nav-item">
+                    <button class="dashboard-nav-btn" data-target="pane-users">
+                        <span>👥</span> User Management
+                    </button>
+                </div>
+                <div class="dashboard-nav-item">
+                    <button class="dashboard-nav-btn" data-target="pane-models">
+                        <span>🤖</span> AI Models
+                    </button>
+                </div>
+                <div class="dashboard-nav-item">
+                    <button class="dashboard-nav-btn" data-target="pane-analytics">
+                        <span>📈</span> Analytics
+                    </button>
+                </div>
+                <div class="dashboard-nav-item">
+                    <button class="dashboard-nav-btn" data-target="pane-plans">
+                        <span>💳</span> Subscription Plans
+                    </button>
+                </div>
+                <div class="dashboard-nav-item">
+                    <button class="dashboard-nav-btn" data-target="pane-settings">
+                        <span>⚙️</span> Settings
+                    </button>
+                </div>
+                
+                <div class="dashboard-logout-btn">
+                    <button class="dashboard-nav-btn logout-action">
+                        <span>↩</span> Logout
+                    </button>
+                </div>
+            </nav>
+        </aside>
+        
+        <!-- Main Dashboard Content -->
+        <main class="dashboard-content">
+            <header class="dashboard-header">
+                <div>
+                    <h1 style="font-size: 24px;">Admin Portal</h1>
+                    <p style="font-size: 13px; color: var(--text-secondary);">Manage organization users, API tokens, and model nodes.</p>
+                </div>
+                <div class="dashboard-user-profile">
+                    <div class="user-avatar" id="avatar-display">A</div>
+                    <div style="font-size: 13px; font-weight: 500;" id="username-display">Administrator</div>
+                </div>
+            </header>
+            
+            <!-- Tab Panes -->
+            
+            <!-- Pane 1: Overview -->
+            <section class="dashboard-pane active" id="pane-overview">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-title">Total Seats</span>
+                        <div class="stat-val">128</div>
+                        <span style="font-size: 11px; color: #27c93f;">12 available slots</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-title">Active AI Agents</span>
+                        <div class="stat-val">42</div>
+                        <span style="font-size: 11px; opacity: 0.6;">Running builds</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-title">Monthly GPU Hours</span>
+                        <div class="stat-val">340 hrs</div>
+                        <span style="font-size: 11px; color: var(--accent-color);">Premium tier quota</span>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3 class="dashboard-section-title">System Status</h3>
+                    <div style="display: flex; gap: 16px; align-items: center; margin-top: 12px; font-size: 14px;">
+                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
+                        <span>API Core Gateway: Operational</span>
+                    </div>
+                    <div style="display: flex; gap: 16px; align-items: center; margin-top: 8px; font-size: 14px;">
+                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
+                        <span>Model Clusters: 100% capacity</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Pane 2: User Management -->
+            <section class="dashboard-pane" id="pane-users">
+                <div class="dashboard-card">
+                    <h3 class="dashboard-section-title">Active Members</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px;">
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; font-size: 14px;">
+                            <span>Sarah Connor (sarah@corp.com)</span>
+                            <span style="color: var(--accent-color); font-weight: 500;">Admin</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; font-size: 14px;">
+                            <span>David Lightman (david@wargames.net)</span>
+                            <span style="opacity: 0.6;">Developer</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; font-size: 14px;">
+                            <span>Miles Dyson (miles@cyberdyne.jp)</span>
+                            <span style="opacity: 0.6;">Developer</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Pane 3: AI Models -->
+            <section class="dashboard-pane" id="pane-models">
+                <div class="dashboard-card">
+                    <h3 class="dashboard-section-title">Active LLM Providers</h3>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">Enable or redirect traffic weights to specific AI systems.</p>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">Claude 3.5 Sonnet</div>
+                            <span style="font-size: 11px; color: var(--text-muted);">Recommended for complex logic</span>
+                        </div>
+                        <div style="color: #27c93f; font-weight: 600; font-size: 13px;">ACTIVE</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">Gemini 1.5 Pro</div>
+                            <span style="font-size: 11px; color: var(--text-muted);">Recommended for large context tasks</span>
+                        </div>
+                        <div style="color: #27c93f; font-weight: 600; font-size: 13px;">ACTIVE</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">Custom Fine-tuned model v2</div>
+                            <span style="font-size: 11px; color: var(--text-muted);">Trained on internal codebases</span>
+                        </div>
+                        <div style="color: var(--text-muted); font-weight: 600; font-size: 13px;">STANDBY</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Pane 4: Analytics -->
+            <section class="dashboard-pane" id="pane-analytics">
+                <div class="dashboard-card">
+                    <h3 class="dashboard-section-title">Monthly Usage Analytics</h3>
+                    <div style="background-color: rgba(255,255,255,0.01); border: 1px solid var(--border-color); border-radius: 8px; padding: 48px; text-align: center; margin-top: 16px;">
+                        <span style="font-size: 3rem;">📊</span>
+                        <div style="font-weight: 600; margin-top: 12px; font-size: 15px;">Monthly Graph Visualization</div>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px;">Total tokens saved this cycle: 15.4M tokens (+14.5% vs last month).</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Pane 5: Subscription Plans -->
+            <section class="dashboard-pane" id="pane-plans">
+                <div class="dashboard-card">
+                    <h3 class="dashboard-section-title">Active Billing Tier</h3>
+                    <div style="background-color: var(--bg-card-hover); border: 1px solid var(--border-color); border-radius: 8px; padding: 24px; margin-top: 16px;">
+                        <div style="display: flex; justify-content: space-between; font-weight: 600;">
+                            <span>Enterprise Premium Edition</span>
+                            <span style="color: var(--accent-color);">$1,450 / month</span>
+                        </div>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 12px;">Plan includes unlimited fast seat upgrades, SOC 2 compliance reports, and custom node weights.</p>
+                        <div style="margin-top: 24px;">
+                            <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Next Invoice Date</span>
+                            <div style="font-size: 14px; font-weight: 600; margin-top: 4px;">August 1, 2026</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Pane 6: Settings -->
+            <section class="dashboard-pane" id="pane-settings">
+                <div class="dashboard-card">
+                    <h3 class="dashboard-section-title">System Configuration</h3>
+                    <div style="margin-top: 20px;">
+                        <div style="margin-bottom: 16px;">
+                            <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Zero Data Retention Policy</label>
+                            <span style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 8px;">Enforces model providers to not write logs containing query prompts.</span>
+                            <select class="form-input" style="width: auto;">
+                                <option value="on">Strict (Enabled)</option>
+                                <option value="off">Off</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Git Branch Verification Hook</label>
+                            <span style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 8px;">Triggers reviews of newly merged code lines.</span>
+                            <select class="form-input" style="width: auto;">
+                                <option value="on">Enabled</option>
+                                <option value="off">Disabled</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Retrieve current logged in user details from localStorage to personalize
+        (function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                document.getElementById('username-display').textContent = currentUser.fullName;
+                document.getElementById('avatar-display').textContent = currentUser.fullName.charAt(0).toUpperCase();
+            }
+        })();
+    </script>
+</body>
+</html>

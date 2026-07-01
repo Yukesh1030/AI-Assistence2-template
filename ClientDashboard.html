@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Workspace - AI Assistant</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom styles for client workspace chat input */
+        .workspace-chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: #0d0d0d;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+        
+        .chat-output-pane {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            font-size: 13px;
+        }
+        
+        .chat-msg-row {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .chat-msg-row.user {
+            justify-content: flex-end;
+        }
+        
+        .chat-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+        
+        .chat-bubble.ai {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+        
+        .chat-bubble.user {
+            background-color: var(--accent-color);
+            color: #000000;
+            font-weight: 500;
+        }
+        
+        .chat-input-bar {
+            display: flex;
+            border-top: 1px solid var(--border-color);
+            padding: 12px;
+            gap: 12px;
+            background-color: #111;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="dashboard-sidebar-header">
+                <img src="assets/logo (10).webp" alt="AI Assistant Brand Logo" class="dashboard-sidebar-logo">
+                <span class="dashboard-sidebar-title">Client Workspace</span>
+            </div>
+            
+            <nav class="dashboard-nav">
+                <div class="dashboard-nav-item">
+                    <button class="dashboard-nav-btn active" data-target="pane-overview">
+                        <span>📊</span> Overview
+                    </button>
+                </div>
+                <div class="dashboard-nav-item">
+                    <button class="dashboard-nav-btn" data-target="pane-workspace">
+                        <span>✨</span> AI Workspace
+                    </button>
+                </div>
+                <div class="dashboard-nav-item">
+                    <button class="dashboard-nav-btn" data-target="pane-projects">
+                        <span>📁</span> My Projects
+                    </button>
+                </div>
+                <div class="dashboard-nav-item">
+                    <button class="dashboard-nav-btn" data-target="pane-history">
+                        <span>💬</span> Chat History
+                    </button>
+                </div>
+                <div class="dashboard-nav-item">
+                    <button class="dashboard-nav-btn" data-target="pane-profile">
+                        <span>👤</span> Profile
+                    </button>
+                </div>
+                
+                <div class="dashboard-logout-btn">
+                    <button class="dashboard-nav-btn logout-action">
+                        <span>↩</span> Logout
+                    </button>
+                </div>
+            </nav>
+        </aside>
+        
+        <!-- Main Dashboard Content -->
+        <main class="dashboard-content">
+            <header class="dashboard-header">
+                <div>
+                    <h1 style="font-size: 24px;">Developer Workspace</h1>
+                    <p style="font-size: 13px; color: var(--text-secondary);">Write, edit, and orchestrate code scripts using AI agents.</p>
+                </div>
+                <div class="dashboard-user-profile">
+                    <div class="user-avatar" id="avatar-display">U</div>
+                    <div style="font-size: 13px; font-weight: 500;" id="username-display">Developer User</div>
+                </div>
+            </header>
+            
+            <!-- Tab Panes -->
+            
+            <!-- Pane 1: Overview -->
+            <section class="dashboard-pane active" id="pane-overview">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-title">Completions</span>
+                        <div class="stat-val">2,450</div>
+                        <span style="font-size: 11px; color: #27c93f;">Unlimited Pro Active</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-title">Active Projects</span>
+                        <div class="stat-val">4</div>
+                        <span style="font-size: 11px; opacity: 0.6;">Local repositories connected</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-title">Response Rate</span>
+                        <div class="stat-val">0.6s</div>
+                        <span style="font-size: 11px; color: var(--accent-color);">Dedicated fast cluster</span>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3 class="dashboard-section-title">Quick Actions</h3>
+                    <div style="display: flex; gap: 12px; margin-top: 16px;">
+                        <button onclick="document.querySelector('[data-target=pane-workspace]').click();" class="btn-hero-primary" style="padding: 10px 20px; font-size: 14px; cursor: pointer;">Open Chat Workspace</button>
+                        <button onclick="document.querySelector('[data-target=pane-projects]').click();" class="btn-hero-secondary" style="padding: 10px 20px; font-size: 14px; cursor: pointer;">View Repositories</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Pane 2: AI Workspace -->
+            <section class="dashboard-pane" id="pane-workspace">
+                <div class="dashboard-card">
+                    <h3 class="dashboard-section-title">AI Chat Assistant</h3>
+                    <span style="font-size: 11px; color: var(--text-muted);">Ask a question or instruct the agent to modify code block.</span>
+                    
+                    <div class="workspace-chat-container">
+                        <div class="chat-output-pane" id="workspace-chat-log">
+                            <div class="chat-msg-row">
+                                <div class="chat-bubble ai">
+                                    Hello! I am your AI coding agent. How can I assist you with your project today?
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input-bar">
+                            <input type="text" id="chat-prompt-input" class="form-input" style="flex-grow: 1;" placeholder="Instruct agent (e.g. Write a quicksort method)...">
+                            <button id="chat-send-btn" class="btn-hero-primary" style="padding: 0 20px; font-size: 13px; font-weight: 600; cursor: pointer;">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Pane 3: My Projects -->
+            <section class="dashboard-pane" id="pane-projects">
+                <div class="dashboard-card">
+                    <h3 class="dashboard-section-title">Connected Code Repositories</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; font-size: 14px;">
+                            <div>
+                                <div style="font-weight:600;">antigravity-auth-api</div>
+                                <span style="font-size:11px; color:var(--text-muted);">Connected via local path | Last indexed 1h ago</span>
+                            </div>
+                            <span style="color: #27c93f; font-weight: 500;">✓ Synced</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; font-size: 14px;">
+                            <div>
+                                <div style="font-weight:600;">client-react-web</div>
+                                <span style="font-size:11px; color:var(--text-muted);">Connected via github hook | Last indexed 3h ago</span>
+                            </div>
+                            <span style="color: #27c93f; font-weight: 500;">✓ Synced</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Pane 4: Chat History -->
+            <section class="dashboard-pane" id="pane-history">
+                <div class="dashboard-card">
+                    <h3 class="dashboard-section-title">Previous Conversations</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px; font-size: 14px;">
+                        <div style="padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer;">
+                            <span style="font-weight: 600;">Fixing routing array out of bounds</span>
+                            <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px;">Completed 2 days ago • Claude 3.5 Sonnet</span>
+                        </div>
+                        <div style="padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer;">
+                            <span style="font-weight: 600;">Generating database adapters schemas</span>
+                            <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px;">Completed 4 days ago • Gemini 1.5 Pro</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Pane 5: Profile -->
+            <section class="dashboard-pane" id="pane-profile">
+                <div class="dashboard-card">
+                    <h3 class="dashboard-section-title">User Account Details</h3>
+                    <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 16px;">
+                        <div>
+                            <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Full Name</span>
+                            <div style="font-size: 15px; font-weight: 600; margin-top: 4px;" id="profile-name">Developer User</div>
+                        </div>
+                        <div>
+                            <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Email Address</span>
+                            <div style="font-size: 15px; font-weight: 600; margin-top: 4px;" id="profile-email">dev@company.com</div>
+                        </div>
+                        <div>
+                            <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Workspace Role</span>
+                            <div style="font-size: 15px; font-weight: 600; margin-top: 4px;" id="profile-role">Client Developer</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Personalize view based on current user session
+        (function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                document.getElementById('username-display').textContent = currentUser.fullName;
+                document.getElementById('avatar-display').textContent = currentUser.fullName.charAt(0).toUpperCase();
+                
+                // Profile pane fields
+                const profileName = document.getElementById('profile-name');
+                const profileEmail = document.getElementById('profile-email');
+                const profileRole = document.getElementById('profile-role');
+                if (profileName) profileName.textContent = currentUser.fullName;
+                if (profileEmail) profileEmail.textContent = currentUser.email;
+                if (profileRole) profileRole.textContent = `Client (${currentUser.role})`;
+            }
+            
+            // Client workspace interactive mock chat
+            const chatSendBtn = document.getElementById('chat-send-btn');
+            const chatInput = document.getElementById('chat-prompt-input');
+            const chatLog = document.getElementById('workspace-chat-log');
+            
+            if (chatSendBtn && chatInput && chatLog) {
+                chatSendBtn.addEventListener('click', runMockChat);
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') runMockChat();
+                });
+            }
+            
+            function runMockChat() {
+                const text = chatInput.value.trim();
+                if (!text) return;
+                
+                // Add User message
+                const userRow = document.createElement('div');
+                userRow.className = 'chat-msg-row user';
+                userRow.innerHTML = `<div class="chat-bubble user">${text}</div>`;
+                chatLog.appendChild(userRow);
+                chatInput.value = '';
+                chatLog.scrollTop = chatLog.scrollHeight;
+                
+                // Simulate AI response
+                setTimeout(() => {
+                    const aiRow = document.createElement('div');
+                    aiRow.className = 'chat-msg-row';
+                    aiRow.innerHTML = `<div class="chat-bubble ai">I've parsed your request: "${text}". Processing modifications... Done! Here is the optimization summary.</div>`;
+                    chatLog.appendChild(aiRow);
+                    chatLog.scrollTop = chatLog.scrollHeight;
+                }, 1000);
+            }
+        })();
+    </script>
+</body>
+</html>

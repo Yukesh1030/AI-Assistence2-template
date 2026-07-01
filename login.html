@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AI Assistant Portal</title>
+    <meta name="description" content="Sign in to your AI Productivity workspace.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="auth-page">
+    <!-- Shifting backdrop shapes -->
+    <div class="auth-bg-shapes">
+        <div class="auth-shape shape-1"></div>
+        <div class="auth-shape shape-2"></div>
+    </div>
+    
+    <div class="glass-form-card">
+        <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+            <img src="assets/logo (10).webp" alt="AI Assistant Brand Logo" style="height: 36px; width: auto;">
+        </div>
+        
+        <h2 class="form-title">Welcome Back</h2>
+        <p class="form-subtitle">Enter credentials to log back into your workspace.</p>
+        
+        <!-- Auth Error Banner -->
+        <div class="auth-error" id="auth-error-msg"></div>
+        
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" id="email" class="form-input" placeholder="alex@company.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="loginAs" class="form-label">Login As</label>
+                <select id="loginAs" class="form-input" style="cursor: pointer;" required>
+                    <option value="Client">Client (Developer / User)</option>
+                    <option value="Admin">Admin (Organization Lead)</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="auth-btn" style="margin-top: 16px;">Log In</button>
+        </form>
+        
+        <div class="auth-redirect">
+            Don't have an account? <a href="signup.html">Register here</a>
+        </div>
+        <div class="auth-redirect" style="margin-top: 12px; text-align: center;">
+            <a href="index.html" class="back-home-link" style="color: var(--text-muted); font-size: 13px; text-decoration: none;">← Back to Home</a>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>

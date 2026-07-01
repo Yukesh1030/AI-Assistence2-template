@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Solutions - AI Assistant Platform</title>
+    <meta name="description" content="Secure, scalable, and compliant enterprise AI integrations for ambitious software development.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom section overrides for enterprise page */
+        .ent-hero {
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+        
+        .benefits-section {
+            padding: 100px 0;
+            background-color: var(--bg-page);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 48px;
+        }
+        
+        .collab-section {
+            padding: 100px 0;
+        }
+        
+        .mock-dashboard {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 48px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease;
+            transform: translateY(40px);
+            opacity: 0;
+        }
+        
+        .mock-dashboard.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+        
+        .security-section {
+            padding: 100px 0;
+            background-color: var(--bg-page);
+        }
+        
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        
+        .security-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .shield-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            transition: transform 0.5s ease;
+        }
+        
+        .security-card:hover .shield-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .lock-pulse {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .lock-pulse::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            animation: pulse-ring 2s infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(0.9); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        
+        .workflow-section {
+            padding: 100px 0;
+        }
+        
+        .ent-cta-section {
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        /* Animated SVG gradient waves */
+        .wave-container {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header id="site-header" class="site-header">
+        <div class="nav-container">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo" id="nav-logo-link">
+                <img src="assets/logo (10).webp" alt="AI Assistant Logo" class="logo-img">
+            </a>
+            
+            <!-- Mid Navigation Links -->
+            <nav class="main-navigation" id="main-navigation">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="product.html" class="nav-link">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="enterprise.html" class="nav-link active">Enterprise</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pricing.html" class="nav-link">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resources.html" class="nav-link">Resources</a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Right Actions (Sign In) -->
+            <div class="header-actions">
+                <a href="login.html" class="btn-signin nav-login-btn" id="btn-signin">Login</a>
+                
+                <!-- Mobile Navigation Toggle -->
+                <button class="mobile-menu-toggle" aria-label="Toggle Navigation" id="mobile-menu-toggle">
+                    <svg class="menu-open-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <svg class="menu-close-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Dropdown Menu -->
+        <div class="mobile-dropdown hidden" id="mobile-dropdown-menu">
+            <nav class="mobile-nav">
+                <ul class="mobile-nav-list">
+                    <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+                    <li><a href="product.html" class="mobile-nav-link">Product</a></li>
+                    <li><a href="enterprise.html" class="mobile-nav-link">Enterprise</a></li>
+                    <li><a href="pricing.html" class="mobile-nav-link">Pricing</a></li>
+                    <li><a href="resources.html" class="mobile-nav-link">Resources</a></li>
+                    <li><a href="login.html" class="mobile-nav-link mobile-login-cta">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- 1. Enterprise Hero Section -->
+        <section class="ent-hero">
+            <div class="container">
+                <h1 class="hero-heading" style="margin-bottom: 16px;">Enterprise AI Solutions</h1>
+                <p class="hero-subtitle" style="margin-bottom: 48px;">Deploy context-aware AI tools across your entire engineering team securely.</p>
+                
+                <!-- Pulsing connected network map nodes on canvas -->
+                <div class="map-container animate-on-scroll">
+                    <canvas id="enterprise-map-canvas"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Enterprise Benefits -->
+        <section class="benefits-section">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto 40px;">
+                    <h2 class="section-title">Scale with Confidence</h2>
+                    <p class="section-subtitle">Premium features constructed for modern technical infrastructure, regulatory standards, and code privacy.</p>
+                </div>
+                
+                <div class="benefits-grid">
+                    <!-- Glassmorphism cards with glow border -->
+                    <div class="glass-card tilt-card animate-on-scroll">
+                        <div style="font-size: 2.2rem; margin-bottom: 16px;">🔒</div>
+                        <h3>Ironclad Security</h3>
+                        <p style="color: var(--text-secondary); margin-top: 12px; font-size: 14px; line-height: 1.6;">SOC 2 Type II certified. Zero data retention policies on AI models, guaranteeing your proprietary IP remains fully isolated.</p>
+                    </div>
+                    
+                    <div class="glass-card tilt-card animate-on-scroll">
+                        <div style="font-size: 2.2rem; margin-bottom: 16px;">📈</div>
+                        <h3>Infinite Scalability</h3>
+                        <p style="color: var(--text-secondary); margin-top: 12px; font-size: 14px; line-height: 1.6;">Handle enterprise load spikes seamlessly with dedicated GPU allocations, ensuring prompt responses under load.</p>
+                    </div>
+                    
+                    <div class="glass-card tilt-card animate-on-scroll">
+                        <div style="font-size: 2.2rem; margin-bottom: 16px;">⚖️</div>
+                        <h3>Strict Compliance</h3>
+                        <p style="color: var(--text-secondary); margin-top: 12px; font-size: 14px; line-height: 1.6;">Custom data governance controls to adhere to GDPR, HIPAA, and industry-specific regulations effortlessly.</p>
+                    </div>
+                    
+                    <div class="glass-card tilt-card animate-on-scroll">
+                        <div style="font-size: 2.2rem; margin-bottom: 16px;">🤝</div>
+                        <h3>Rich Collaboration</h3>
+                        <p style="color: var(--text-secondary); margin-top: 12px; font-size: 14px; line-height: 1.6;">Shared context libraries, prompt definitions, and team automation recipes that build collaborative expertise.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Team Collaboration -->
+        <section class="collab-section">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto;">
+                    <h2 class="section-title">Centralized Team Collaboration</h2>
+                    <p class="section-subtitle">Align developers, PMs, and architects on a single AI workspace.</p>
+                </div>
+                
+                <!-- Slide-in dashboard representation with stats counters -->
+                <div class="mock-dashboard animate-on-scroll" id="collab-dashboard">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 16px;">
+                        <div style="font-weight: 600;">👥 Team Space Overview</div>
+                        <div style="font-size: 13px; color: var(--accent-color);">✨ Premium Enterprise Active</div>
+                    </div>
+                    
+                    <div class="stats-grid" style="margin-top: 24px;">
+                        <div class="stat-card">
+                            <span class="stat-title">Active Engineers</span>
+                            <div class="stat-val" data-target="245">0</div>
+                            <span style="font-size: 11px; color: #27c93f;">↑ 12 new users today</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-title">Shared AI Prompts</span>
+                            <div class="stat-val" data-target="86">0</div>
+                            <span style="font-size: 11px; opacity: 0.6;">Active across all repos</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-title">Tokens Processed</span>
+                            <div class="stat-val" data-target="1500000">0</div>
+                            <span style="font-size: 11px; color: var(--accent-color);">100% private models</span>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-grid">
+                        <div class="collab-sidebar-pane">
+                            <div style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;">Active Members</div>
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                <div class="user-avatar" style="width: 24px; height: 24px; font-size: 10px;">JS</div>
+                                <span style="font-size: 13px;">John Smith (Lead)</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                <div class="user-avatar" style="width: 24px; height: 24px; font-size: 10px; background: #a855f7;">MD</div>
+                                <span style="font-size: 13px;">Maria Diaz (Dev)</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;">Recent Collaboration Feed</div>
+                            <div style="background-color: rgba(255,255,255,0.01); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; font-size: 12px; margin-bottom: 8px;">
+                                <span style="font-weight:600; color:var(--accent-color);">Comment on #MainRouter:</span> "The AI generator refactored the auth loop. Looks clean!"
+                            </div>
+                            <div style="background-color: rgba(255,255,255,0.01); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; font-size: 12px;">
+                                <span style="font-weight:600; color:#a855f7;">Task Completed:</span> "Write tests for database connector.js generated by agent."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Security details -->
+        <section class="security-section">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto 60px;">
+                    <h2 class="section-title">Enterprise Security Standards</h2>
+                    <p class="section-subtitle">We protect your assets and verify operations through rigorous protocols.</p>
+                </div>
+                
+                <div class="security-grid">
+                    <div class="security-card animate-on-scroll">
+                        <div class="shield-icon lock-pulse">🛡️</div>
+                        <h3>AES-256 Encryption</h3>
+                        <p style="color: var(--text-secondary); margin-top: 12px; font-size: 13px;">Data is encrypted at rest and in transit using top-tier encryption standards.</p>
+                    </div>
+                    
+                    <div class="security-card animate-on-scroll">
+                        <div class="shield-icon">🔐</div>
+                        <h3>Granular Permissions</h3>
+                        <p style="color: var(--text-secondary); margin-top: 12px; font-size: 13px;">Define access credentials by repository, team, or specific user roles.</p>
+                    </div>
+                    
+                    <div class="security-card animate-on-scroll">
+                        <div class="shield-icon">📝</div>
+                        <h3>Audit Logs</h3>
+                        <p style="color: var(--text-secondary); margin-top: 12px; font-size: 13px;">Export complete trails of prompt events, model calls, and active logins.</p>
+                    </div>
+                    
+                    <div class="security-card animate-on-scroll">
+                        <div class="shield-icon">🕵️</div>
+                        <h3>Data Privacy Guarantee</h3>
+                        <p style="color: var(--text-secondary); margin-top: 12px; font-size: 13px;">Your prompts and code snippets are never stored, indexed, or used for model training.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Enterprise Workflow Timeline -->
+        <section class="workflow-section">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto 60px;">
+                    <h2 class="section-title">Deployment Workflow</h2>
+                    <p class="section-subtitle">Scroll down to trace our streamlined discover-to-deploy timeline.</p>
+                </div>
+                
+                <!-- Scroll Timeline -->
+                <div class="timeline-container">
+                    <div class="timeline-line-progress"></div>
+                    <div class="timeline-line-active"></div>
+                    
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-dot"></div>
+                        <h3 class="timeline-title">1. Discover</h3>
+                        <p style="color: var(--text-secondary); font-size: 14px;">Understand current engineering friction and define scoping goals for AI integration.</p>
+                    </div>
+                    
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-dot"></div>
+                        <h3 class="timeline-title">2. Deploy</h3>
+                        <p style="color: var(--text-secondary); font-size: 14px;">Provision dedicated cloud workspaces and isolate GPU clusters securely.</p>
+                    </div>
+                    
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-dot"></div>
+                        <h3 class="timeline-title">3. Integrate</h3>
+                        <p style="color: var(--text-secondary); font-size: 14px;">Connect GitHub, GitLab, Jira, and Slack channels via private webhooks.</p>
+                    </div>
+                    
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-dot"></div>
+                        <h3 class="timeline-title">4. Collaborate</h3>
+                        <p style="color: var(--text-secondary); font-size: 14px;">Share prompts, coordinate reviews, and build automated templates as a unit.</p>
+                    </div>
+                    
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-dot"></div>
+                        <h3 class="timeline-title">5. Analyze</h3>
+                        <p style="color: var(--text-secondary); font-size: 14px;">Track developer velocity, code line modifications, and savings dynamically.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Enterprise CTA -->
+        <section class="ent-cta-section aurora-section" style="background-color: #0b0b0b;">
+            <div class="wave-container">
+                <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                    <path fill="var(--accent-color)" fill-opacity="0.3" d="M0,192L48,176C96,160,192,128,288,128C384,128,480,160,576,186.7C672,213,768,235,864,224C960,213,1056,171,1152,149.3C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                </svg>
+            </div>
+            <div class="container" style="position: relative; z-index: 2;">
+                <h2 class="hero-heading" style="font-size: 3rem; margin-bottom: 16px;">Ready to Empower Your Engineering Team?</h2>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 32px; font-size: 1.1rem;">Schedule a tailored demo call with our enterprise architect to configure private models.</p>
+                <div style="display: flex; justify-content: center; gap: 16px;">
+                    <a href="404.html" class="btn-hero-primary">Book Enterprise Demo</a>
+                    <a href="404.html" class="btn-hero-secondary">Contact Sales</a>
+                </div>
+            </div>
+        </section>
+    </main>
+ 
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <!-- Col 0: Brand Logo -->
+            <div class="footer-brand-col">
+                <a href="index.html" class="footer-logo">
+                    <img src="assets/logo (10).webp" alt="AI Assistant Logo" class="footer-logo-img">
+                </a>
+                <p class="footer-brand-desc">Explore the Complete AI Productivity Suite built to make you extraordinarily productive.</p>
+            </div>
+            
+            <!-- Col 1: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Product</h5>
+                <ul class="footer-links-list">
+                    <li><a href="product.html">Product Suite</a></li>
+                    <li><a href="enterprise.html">Enterprise</a></li>
+                    <li><a href="pricing.html">Pricing Plans</a></li>
+                    <li><a href="404.html">Features</a></li>
+                    <li><a href="404.html">Developer CLI</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 2: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Resources</h5>
+                <ul class="footer-links-list">
+                    <li><a href="resources.html">Docs & SDKs</a></li>
+                    <li><a href="404.html">Blog Feed</a></li>
+                    <li><a href="404.html">API Reference</a></li>
+                    <li><a href="404.html">Changelog</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 3: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Company</h5>
+                <ul class="footer-links-list">
+                    <li><a href="404.html">About Us</a></li>
+                    <li><a href="404.html">Careers</a></li>
+                    <li><a href="404.html">Press Kit</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 4: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Connect</h5>
+                <ul class="footer-links-list" style="display: flex; gap: 12px; margin-top: 8px;">
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/twitter.webp" alt="Twitter" class="social-icon">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/linkedin.webp" alt="LinkedIn" class="social-icon">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/facebook.webp" alt="Facebook" class="social-icon">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/instagram.webp" alt="Instagram" class="social-icon">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <div class="footer-bottom-left">
+                <span class="copyright">© 2026 AI Assistant, Inc.</span>
+                <a href="404.html" class="legal-link">Terms</a>
+                <a href="404.html" class="legal-link">Privacy</a>
+                <span class="badge-soc">SOC 2 Type II Certified</span>
+            </div>
+            
+            <div class="footer-bottom-right">
+                <!-- Theme Switcher Removed -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Custom dynamic numerical counters for Team Space Dashboard
+        (function() {
+            const dashboard = document.getElementById('collab-dashboard');
+            let countersAnimated = false;
+            
+            function animateCounters() {
+                const vals = dashboard.querySelectorAll('.stat-val');
+                vals.forEach(v => {
+                    const target = parseInt(v.getAttribute('data-target'), 10);
+                    const increment = target / 60; // 60 frames animation
+                    let count = 0;
+                    
+                    function update() {
+                        count += increment;
+                        if (count < target) {
+                            v.textContent = Math.floor(count).toLocaleString();
+                            requestAnimationFrame(update);
+                        } else {
+                            v.textContent = target.toLocaleString();
+                        }
+                    }
+                    update();
+                });
+            }
+            
+            // Scroll trigger for dashboard animations
+            window.addEventListener('scroll', () => {
+                if (dashboard && !countersAnimated) {
+                    const rect = dashboard.getBoundingClientRect();
+                    if (rect.top < window.innerHeight - 100) {
+                        dashboard.classList.add('visible');
+                        animateCounters();
+                        countersAnimated = true;
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

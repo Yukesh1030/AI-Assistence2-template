@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Resources - AI Assistant Platform</title>
+    <meta name="description" content="Access learning materials, documentation APIs, SDKs, community forums, and latest blog updates.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom section overrides for resources page */
+        .res-hero {
+            padding: 140px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .floating-assets {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .float-asset {
+            position: absolute;
+            font-size: 2.5rem;
+            opacity: 0.15;
+            animation: bounce-float 8s infinite alternate ease-in-out;
+        }
+        
+        .asset-1 { top: 20%; left: 15%; animation-delay: 0s; }
+        .asset-2 { top: 60%; left: 22%; animation-delay: -2s; }
+        .asset-3 { top: 30%; right: 18%; animation-delay: -4s; }
+        .asset-4 { top: 70%; right: 15%; animation-delay: -6s; }
+        
+        @keyframes bounce-float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-30px) rotate(10deg); }
+        }
+        
+        .docs-section {
+            padding: 100px 0;
+            background-color: var(--bg-page);
+        }
+        
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        
+        .docs-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            cursor: pointer;
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+        }
+        
+        .docs-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        .blog-section {
+            padding: 100px 0;
+        }
+        
+        .videos-section {
+            padding: 100px 0;
+            background-color: var(--bg-page);
+        }
+        
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        
+        .video-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .video-thumb {
+            width: 100%;
+            height: 180px;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s ease;
+        }
+        
+        .video-card:hover .video-thumb {
+            transform: scale(1.05);
+        }
+        
+        .video-card:hover .play-btn {
+            background-color: var(--accent-color);
+            color: #000000;
+        }
+        
+        .play-btn {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            transition: background-color var(--transition-fast), color var(--transition-fast);
+        }
+        
+        .community-section {
+            padding: 100px 0;
+        }
+        
+        .downloads-section {
+            padding: 100px 0;
+            background-color: var(--bg-page);
+        }
+        
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        
+        .download-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .download-icon {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+            display: inline-block;
+            animation: bounce-icon 2s infinite ease-in-out;
+        }
+        
+        @keyframes bounce-icon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header id="site-header" class="site-header">
+        <div class="nav-container">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo" id="nav-logo-link">
+                <img src="assets/logo (10).webp" alt="AI Assistant Logo" class="logo-img">
+            </a>
+            
+            <!-- Mid Navigation Links -->
+            <nav class="main-navigation" id="main-navigation">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="product.html" class="nav-link">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="enterprise.html" class="nav-link">Enterprise</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pricing.html" class="nav-link">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resources.html" class="nav-link active">Resources</a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Right Actions (Sign In) -->
+            <div class="header-actions">
+                <a href="login.html" class="btn-signin nav-login-btn" id="btn-signin">Login</a>
+                
+                <!-- Mobile Navigation Toggle -->
+                <button class="mobile-menu-toggle" aria-label="Toggle Navigation" id="mobile-menu-toggle">
+                    <svg class="menu-open-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <svg class="menu-close-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Dropdown Menu -->
+        <div class="mobile-dropdown hidden" id="mobile-dropdown-menu">
+            <nav class="mobile-nav">
+                <ul class="mobile-nav-list">
+                    <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+                    <li><a href="product.html" class="mobile-nav-link">Product</a></li>
+                    <li><a href="enterprise.html" class="mobile-nav-link">Enterprise</a></li>
+                    <li><a href="pricing.html" class="mobile-nav-link">Pricing</a></li>
+                    <li><a href="resources.html" class="mobile-nav-link">Resources</a></li>
+                    <li><a href="login.html" class="mobile-nav-link mobile-login-cta">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- 1. Hero Section -->
+        <section class="res-hero aurora-section">
+            <div class="aurora-bg"></div>
+            <div class="floating-assets">
+                <div class="float-asset asset-1">📚</div>
+                <div class="float-asset asset-2">🤖</div>
+                <div class="float-asset asset-3">⚡</div>
+                <div class="float-asset asset-4">💡</div>
+            </div>
+            <div class="container" style="position: relative; z-index: 2;">
+                <h1 class="hero-heading">Learning Resources</h1>
+                <p class="hero-subtitle">Access learning tutorials, reference manuals, APIs, and blogs.</p>
+            </div>
+        </section>
+
+        <!-- 2. Documentation -->
+        <section class="docs-section">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto 40px;">
+                    <h2 class="section-title">Documentation Guides</h2>
+                    <p class="section-subtitle">Staggered elevation reference cards containing detailed guidebooks.</p>
+                </div>
+                
+                <div class="docs-grid">
+                    <div class="docs-card animate-on-scroll">
+                        <div style="font-size: 1.5rem; margin-bottom: 12px;">⚙️</div>
+                        <h4>API References</h4>
+                        <p style="color: var(--text-secondary); font-size: 13px; margin-top: 8px;">Explore endpoints, hooks, query schemas, and return models.</p>
+                    </div>
+                    
+                    <div class="docs-card animate-on-scroll">
+                        <div style="font-size: 1.5rem; margin-bottom: 12px;">📦</div>
+                        <h4>SDK Packages</h4>
+                        <p style="color: var(--text-secondary); font-size: 13px; margin-top: 8px;">Integrate native Node, Go, Rust, and Python code adapters.</p>
+                    </div>
+                    
+                    <div class="docs-card animate-on-scroll">
+                        <div style="font-size: 1.5rem; margin-bottom: 12px;">🎓</div>
+                        <h4>Tutorials</h4>
+                        <p style="color: var(--text-secondary); font-size: 13px; margin-top: 8px;">A step-by-step developer tutorial mapping initial setup flows.</p>
+                    </div>
+                    
+                    <div class="docs-card animate-on-scroll">
+                        <div style="font-size: 1.5rem; margin-bottom: 12px;">💡</div>
+                        <h4>Examples</h4>
+                        <p style="color: var(--text-secondary); font-size: 13px; margin-top: 8px;">Functional repositories demonstrating automated script tasks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Blog Feed (Masonry Grid) -->
+        <section class="blog-section" id="blog">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto 60px;">
+                    <h2 class="section-title">Latest Updates & Articles</h2>
+                    <p class="section-subtitle">Deep dive write-ups detailing developer workflow gains.</p>
+                </div>
+                
+                <div class="masonry-grid">
+                    <!-- Masonry Items -->
+                    <div class="masonry-item animate-on-scroll">
+                        <span style="font-size: 11px; color: var(--accent-color); font-weight: 600;">AGENTIC FLOWS</span>
+                        <h4 style="margin: 8px 0;">Introducing Multi-Agent Collaboration Workspace</h4>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">Coordinate distinct autonomous code refactoring tasks across your team inside a single integrated environment...</p>
+                        <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 16px;">July 1, 2026</span>
+                    </div>
+                    
+                    <div class="masonry-item animate-on-scroll">
+                        <span style="font-size: 11px; color: #a855f7; font-weight: 600;">MODEL DEPLOYMENT</span>
+                        <h4 style="margin: 8px 0;">How We Shaved 40% Off AI Latency Rates</h4>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">A technical breakdown of our dedicated GPU allocation model and caching pipelines that deliver sub-second responses...</p>
+                        <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 16px;">June 24, 2026</span>
+                    </div>
+                    
+                    <div class="masonry-item animate-on-scroll">
+                        <span style="font-size: 11px; color: var(--accent-color); font-weight: 600;">SECURITY</span>
+                        <h4 style="margin: 8px 0;">Zero Data Retention Architecture</h4>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">How we isolate enterprise codebases transiently. Code details are never saved, keeping custom code privacy active...</p>
+                        <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 16px;">June 18, 2026</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Video Tutorials -->
+        <section class="videos-section">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto 40px;">
+                    <h2 class="section-title">Video Tutorials</h2>
+                    <p class="section-subtitle">Visual walkthroughs detailing complex configuration settings.</p>
+                </div>
+                
+                <div class="videos-grid">
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-thumb">
+                            ⌨️
+                            <div class="play-btn">▶</div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <h4>Setting Up Autonomous Git Hooks</h4>
+                            <p style="color: var(--text-secondary); font-size: 13px; margin-top: 8px; line-height: 1.5;">Configure pre-commit scripts that verify custom types automatically using local agents.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-thumb">
+                            🔍
+                            <div class="play-btn">▶</div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <h4>Semantic Workspace Search</h4>
+                            <p style="color: var(--text-secondary); font-size: 13px; margin-top: 8px; line-height: 1.5;">Learn how to leverage embedding-based searches across third-party documentation wrappers.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card animate-on-scroll">
+                        <div class="video-thumb">
+                            🔒
+                            <div class="play-btn">▶</div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <h4>SSO & Role Permissions Configuration</h4>
+                            <p style="color: var(--text-secondary); font-size: 13px; margin-top: 8px; line-height: 1.5;">A detailed guide showing security coordinators how to map SAML attributes securely.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Community -->
+        <section class="community-section" id="community">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto 40px;">
+                    <h2 class="section-title">Join Our Developer Community</h2>
+                    <p class="section-subtitle">Connect with thousands of engineering teams pushing automation boundaries.</p>
+                </div>
+                
+                <!-- Infinite horizontal marquee of social tags -->
+                <div class="marquee-wrapper">
+                    <div class="marquee-content reverse">
+                        <div class="marquee-item"><span class="marquee-icon">💬</span> Discord (20K Members)</div>
+                        <div class="marquee-item"><span class="marquee-icon">🐙</span> GitHub Discussions</div>
+                        <div class="marquee-item"><span class="marquee-icon">🌐</span> Community Forum</div>
+                        <div class="marquee-item"><span class="marquee-icon">✉️</span> Weekly Newsletter</div>
+                        <!-- Duplications -->
+                        <div class="marquee-item"><span class="marquee-icon">💬</span> Discord (20K Members)</div>
+                        <div class="marquee-item"><span class="marquee-icon">🐙</span> GitHub Discussions</div>
+                        <div class="marquee-item"><span class="marquee-icon">🌐</span> Community Forum</div>
+                        <div class="marquee-item"><span class="marquee-icon">✉️</span> Weekly Newsletter</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Download Center -->
+        <section class="downloads-section">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto 40px;">
+                    <h2 class="section-title">Download Center</h2>
+                    <p class="section-subtitle">Acquire comprehensive research materials, case studies, and offline manuals.</p>
+                </div>
+                
+                <div class="downloads-grid">
+                    <div class="download-card animate-on-scroll">
+                        <div class="download-icon">📥</div>
+                        <h4>Enterprise Whitepaper</h4>
+                        <p style="color: var(--text-secondary); font-size: 13px; margin-top: 8px; line-height: 1.5;">Learn technical detail on isolated container boundaries and threat matrices.</p>
+                    </div>
+                    
+                    <div class="download-card animate-on-scroll">
+                        <div class="download-icon">📊</div>
+                        <h4>SaaS Case Study</h4>
+                        <p style="color: var(--text-secondary); font-size: 13px; margin-top: 8px; line-height: 1.5;">Trace how a major SaaS corporation saved 4,000 developer hours in 90 days.</p>
+                    </div>
+                    
+                    <div class="download-card animate-on-scroll">
+                        <div class="download-icon">📖</div>
+                        <h4>Offline eBook Guide</h4>
+                        <p style="color: var(--text-secondary); font-size: 13px; margin-top: 8px; line-height: 1.5;">A comprehensive reference manual mapping command line hooks and tasks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <!-- Col 0: Brand Logo -->
+            <div class="footer-brand-col">
+                <a href="index.html" class="footer-logo">
+                    <img src="assets/logo (10).webp" alt="AI Assistant Logo" class="footer-logo-img">
+                </a>
+                <p class="footer-brand-desc">Explore the Complete AI Productivity Suite built to make you extraordinarily productive.</p>
+            </div>
+            
+            <!-- Col 1: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Product</h5>
+                <ul class="footer-links-list">
+                    <li><a href="product.html">Product Suite</a></li>
+                    <li><a href="enterprise.html">Enterprise</a></li>
+                    <li><a href="pricing.html">Pricing Plans</a></li>
+                    <li><a href="404.html">Features</a></li>
+                    <li><a href="404.html">Developer CLI</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 2: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Resources</h5>
+                <ul class="footer-links-list">
+                    <li><a href="resources.html">Docs & SDKs</a></li>
+                    <li><a href="404.html">Blog Feed</a></li>
+                    <li><a href="404.html">API Reference</a></li>
+                    <li><a href="404.html">Changelog</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 3: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Company</h5>
+                <ul class="footer-links-list">
+                    <li><a href="404.html">About Us</a></li>
+                    <li><a href="404.html">Careers</a></li>
+                    <li><a href="404.html">Press Kit</a></li>
+                </ul>
+            </div>
+            
+            <!-- Col 4: Links -->
+            <div class="footer-links-col">
+                <h5 class="footer-col-title">Connect</h5>
+                <ul class="footer-links-list" style="display: flex; gap: 12px; margin-top: 8px;">
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/twitter.webp" alt="Twitter" class="social-icon">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/linkedin.webp" alt="LinkedIn" class="social-icon">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/facebook.webp" alt="Facebook" class="social-icon">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="404.html">
+                            <img src="assets/instagram.webp" alt="Instagram" class="social-icon">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <div class="footer-bottom-left">
+                <span class="copyright">© 2026 AI Assistant, Inc.</span>
+                <a href="404.html" class="legal-link">Terms</a>
+                <a href="404.html" class="legal-link">Privacy</a>
+                <span class="badge-soc">SOC 2 Type II Certified</span>
+            </div>
+            
+            <div class="footer-bottom-right">
+                <!-- Theme Switcher Removed -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
