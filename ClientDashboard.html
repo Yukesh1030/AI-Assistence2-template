@@ -8,23 +8,328 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
+    
     <style>
-        /* Custom styles for client workspace chat input */
+        /* Modern Premium Dashboards Overrides & Extensions */
+        :root {
+            --glow-color: rgba(56, 189, 248, 0.15);
+            --gradient-accent: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+            --glass-bg: rgba(20, 20, 20, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: radial-gradient(circle at top right, #0e1726, #070709);
+            overflow-x: hidden;
+        }
+
+        /* Responsive Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Mobile top-bar (Hidden on Desktop) */
+        .mobile-top-bar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 0 16px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hamburger-menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 30px;
+            height: 24px;
+            justify-content: center;
+            z-index: 1100;
+        }
+
+        .hamburger-menu-btn span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-primary);
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* Hamburger Morph to X */
+        .hamburger-menu-btn.open span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger-menu-btn.open span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-menu-btn.open span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .mobile-logo {
+            height: 24px;
+            width: auto;
+        }
+
+        .user-avatar-mobile {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+        }
+
+        /* Sidebar Desktop & Mobile Drawer */
+        .dashboard-sidebar {
+            width: 280px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 999;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-close-btn {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .sidebar-close-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .dashboard-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        /* Sidebar active glow */
+        .dashboard-nav-btn {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-nav-btn.active {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-color);
+            border-left: 3px solid var(--accent-color);
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            box-shadow: inset 5px 0 15px rgba(56, 189, 248, 0.05);
+        }
+
+        .dashboard-nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: 0.5s;
+        }
+
+        .dashboard-nav-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Main Content Head styling */
+        .dashboard-header {
+            margin-top: 0;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-header-text h1 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        /* Advanced Panes and Fade In / Slide Up Animations */
+        .dashboard-pane {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .dashboard-pane.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cards and Hover Transitions */
+        .premium-card {
+            background: rgba(20, 20, 25, 0.55);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .premium-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), 0 0 20px rgba(56, 189, 248, 0.05);
+        }
+
+        .card-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title-badge {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-color);
+            background: rgba(56, 189, 248, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Status Dot Pulsing */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px currentColor;
+        }
+        .status-dot.active {
+            background-color: #10b981;
+            color: #10b981;
+            animation: pulse-glow 2s infinite;
+        }
+        .status-dot.warning {
+            background-color: #f59e0b;
+            color: #f59e0b;
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* Specific Widgets & Tooling Styles */
+        /* AI Workspace Styles */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 240px 1fr 340px;
+            gap: 20px;
+            margin-top: 16px;
+            height: 650px;
+        }
+
+        .file-tree-container {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: rgba(10, 10, 12, 0.9);
+            padding: 16px;
+            overflow-y: auto;
+            font-size: 13px;
+        }
+
+        .file-item {
+            padding: 6px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .file-item:hover, .file-item.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .file-item.active {
+            border-left: 2px solid var(--accent-color);
+            font-weight: 500;
+        }
+
         .workspace-chat-container {
             display: flex;
             flex-direction: column;
-            height: 400px;
+            height: 100%;
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            background-color: #0d0d0d;
+            background-color: #0d0d0f;
             overflow: hidden;
-            margin-top: 16px;
         }
-        
+
         .chat-output-pane {
             flex-grow: 1;
             padding: 20px;
@@ -33,84 +338,368 @@
             flex-direction: column;
             gap: 16px;
             font-size: 13px;
+            scrollbar-width: thin;
         }
-        
+
         .chat-msg-row {
             display: flex;
             gap: 12px;
         }
-        
+
         .chat-msg-row.user {
             justify-content: flex-end;
         }
-        
+
         .chat-bubble {
-            max-width: 70%;
+            max-width: 80%;
             padding: 12px 16px;
-            border-radius: 8px;
+            border-radius: 12px;
             line-height: 1.5;
+            animation: bubble-fade 0.3s ease-out forwards;
         }
-        
+
+        @keyframes bubble-fade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .chat-bubble.ai {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-primary);
         }
-        
+
         .chat-bubble.user {
-            background-color: var(--accent-color);
-            color: #000000;
+            background: var(--gradient-accent);
+            color: #000;
             font-weight: 500;
         }
-        
+
+        .chat-chips {
+            display: flex;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #09090b;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+
+        .chat-chip {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 6px 12px;
+            font-size: 11px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .chat-chip:hover {
+            border-color: var(--accent-color);
+            color: var(--text-primary);
+            background: rgba(56, 189, 248, 0.05);
+        }
+
         .chat-input-bar {
             display: flex;
             border-top: 1px solid var(--border-color);
             padding: 12px;
             gap: 12px;
-            background-color: #111;
+            background-color: #111115;
+        }
+
+        .editor-pane-container {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: #0b0b0d;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .editor-code {
+            flex-grow: 1;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: #e4e4e7;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+
+        /* Custom progress bar */
+        .premium-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 8px 0;
+            position: relative;
+        }
+
+        .premium-progress-fill {
+            height: 100%;
+            background: var(--gradient-accent);
+            border-radius: 3px;
+            width: 0;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Stats Grid overrides */
+        .stats-grid-5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        /* Logs / Terminal Styling */
+        .terminal-panel {
+            background-color: #050507;
+            border: 1px solid #1f1f2e;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            padding: 16px;
+            color: #34d399;
+            height: 180px;
+            overflow-y: auto;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .terminal-line {
+            margin-bottom: 4px;
+            opacity: 0.9;
+        }
+
+        .terminal-line.error { color: #f87171; }
+        .terminal-line.info { color: #60a5fa; }
+
+        /* API Tokens list */
+        .api-token-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: background 0.2s;
+        }
+
+        .api-token-row:hover {
+            background: rgba(255,255,255,0.04);
+        }
+
+        /* Responsive Design System overrides */
+        @media (max-width: 1200px) {
+            .workspace-grid {
+                grid-template-columns: 200px 1fr;
+                height: 800px;
+            }
+            .editor-pane-container {
+                grid-column: span 2;
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-top-bar {
+                display: flex;
+            }
+
+            .dashboard-sidebar {
+                position: fixed !important;
+                transform: translateX(-100%) !important;
+                top: 60px !important;
+                left: 0 !important;
+                height: calc(100vh - 60px) !important;
+                width: 280px !important;
+                box-shadow: 15px 0 30px rgba(0,0,0,0.5) !important;
+                background: var(--glass-bg) !important;
+                backdrop-filter: blur(20px) !important;
+                -webkit-backdrop-filter: blur(20px) !important;
+                display: flex !important;
+                flex-direction: column !important;
+                z-index: 999 !important;
+            }
+
+            .dashboard-sidebar.open {
+                transform: translateX(0) !important;
+            }
+
+            .sidebar-close-btn {
+                display: block;
+            }
+
+            .dashboard-content {
+                margin-left: 0;
+                padding: 80px 16px 40px 16px;
+            }
+
+            .stats-grid-5 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-nav {
+                flex-direction: column !important;
+                overflow-x: visible !important;
+                gap: 4px !important;
+                border-bottom: none !important;
+                width: 100% !important;
+                padding-bottom: 0 !important;
+            }
+
+            .dashboard-nav-item {
+                width: 100% !important;
+                flex-shrink: 0;
+            }
+
+            .dashboard-logout-btn {
+                margin-top: auto !important;
+                padding-top: 16px !important;
+                border-top: 1px solid var(--border-color) !important;
+                margin-left: 0 !important;
+                width: 100% !important;
+                display: block !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid-5 {
+                grid-template-columns: 1fr;
+            }
+
+            .workspace-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .file-tree-container {
+                height: 150px;
+            }
+
+            .workspace-chat-container {
+                height: 450px;
+            }
+
+            .editor-pane-container {
+                grid-column: span 1;
+                height: 300px;
+            }
+
+            .card-header-flex {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+        /* Glassmorphic Backdrop overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Simple form elements alignment */
+        .profile-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .profile-form-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Mobile Navigation Topbar -->
+    <header class="mobile-top-bar">
+        <button class="hamburger-menu-btn" id="hamburger-menu-btn" aria-label="Toggle Navigation Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <img src="assets/logo (10).webp" alt="AI Assistant Brand Logo" class="mobile-logo">
+        <div class="user-avatar-mobile" id="avatar-display-mobile">U</div>
+    </header>
+
+    <!-- Background overlay for mobile drawer -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
     <div class="dashboard-layout">
-        <!-- Sidebar Navigation -->
-        <aside class="dashboard-sidebar">
+        <!-- Sidebar Navigation Drawer -->
+        <aside class="dashboard-sidebar" id="dashboard-sidebar">
+            <button class="sidebar-close-btn" id="sidebar-close-btn">&times;</button>
             <div class="dashboard-sidebar-header">
                 <img src="assets/logo (10).webp" alt="AI Assistant Brand Logo" class="dashboard-sidebar-logo">
-                <span class="dashboard-sidebar-title">Client Workspace</span>
+                <span class="dashboard-sidebar-title">Client Console</span>
             </div>
             
             <nav class="dashboard-nav">
                 <div class="dashboard-nav-item">
                     <button class="dashboard-nav-btn active" data-target="pane-overview">
-                        <span>📊</span> Overview
+                        Overview
                     </button>
                 </div>
                 <div class="dashboard-nav-item">
                     <button class="dashboard-nav-btn" data-target="pane-workspace">
-                        <span>✨</span> AI Workspace
+                        AI Workspace
                     </button>
                 </div>
                 <div class="dashboard-nav-item">
                     <button class="dashboard-nav-btn" data-target="pane-projects">
-                        <span>📁</span> My Projects
+                        My Projects
                     </button>
                 </div>
                 <div class="dashboard-nav-item">
                     <button class="dashboard-nav-btn" data-target="pane-history">
-                        <span>💬</span> Chat History
+                        Chat History
                     </button>
                 </div>
                 <div class="dashboard-nav-item">
                     <button class="dashboard-nav-btn" data-target="pane-profile">
-                        <span>👤</span> Profile
+                        Profile
                     </button>
                 </div>
                 
                 <div class="dashboard-logout-btn">
                     <button class="dashboard-nav-btn logout-action">
-                        <span>↩</span> Logout
+                        Logout
                     </button>
                 </div>
             </nav>
@@ -119,65 +708,243 @@
         <!-- Main Dashboard Content -->
         <main class="dashboard-content">
             <header class="dashboard-header">
-                <div>
-                    <h1 style="font-size: 24px;">Developer Workspace</h1>
-                    <p style="font-size: 13px; color: var(--text-secondary);">Write, edit, and orchestrate code scripts using AI agents.</p>
+                <div class="dashboard-header-text">
+                    <h1 id="page-title">Developer Workspace</h1>
+                    <p style="font-size: 13px; color: var(--text-secondary);" id="page-subtitle">Write, edit, and orchestrate code scripts using AI agents.</p>
                 </div>
-                <div class="dashboard-user-profile">
-                    <div class="user-avatar" id="avatar-display">U</div>
-                    <div style="font-size: 13px; font-weight: 500;" id="username-display">Developer User</div>
+                <div class="dashboard-user-profile" style="display: flex; align-items: center; gap: 12px;">
+                    <div class="user-avatar" id="avatar-display" style="background: var(--gradient-accent);">U</div>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 13px; font-weight: 600;" id="username-display">Developer User</span>
+                        <span style="font-size: 10px; color: var(--text-muted);">Pro Tier Client</span>
+                    </div>
                 </div>
             </header>
             
-            <!-- Tab Panes -->
-            
             <!-- Pane 1: Overview -->
             <section class="dashboard-pane active" id="pane-overview">
-                <div class="stats-grid">
+                <!-- Section 1: Interactive Status Grid -->
+                <div class="stats-grid-5">
                     <div class="stat-card">
-                        <span class="stat-title">Completions</span>
+                        <span class="stat-title">Token Completes</span>
                         <div class="stat-val">2,450</div>
-                        <span style="font-size: 11px; color: #27c93f;">Unlimited Pro Active</span>
+                        <span style="font-size: 11px; color: #10b981; font-weight: 500;">✓ Pro active</span>
                     </div>
                     <div class="stat-card">
                         <span class="stat-title">Active Projects</span>
-                        <div class="stat-val">4</div>
-                        <span style="font-size: 11px; opacity: 0.6;">Local repositories connected</span>
+                        <div class="stat-val" id="overview-project-count">2</div>
+                        <span style="font-size: 11px; opacity: 0.7;">Repos connected</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-title">Response Rate</span>
-                        <div class="stat-val">0.6s</div>
-                        <span style="font-size: 11px; color: var(--accent-color);">Dedicated fast cluster</span>
+                        <span class="stat-title">Avg. Latency</span>
+                        <div class="stat-val">0.58s</div>
+                        <span style="font-size: 11px; color: var(--accent-color);">Dedicated cluster</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-title">Credits Used</span>
+                        <div class="stat-val" id="overview-credits">$42.10</div>
+                        <span style="font-size: 11px; opacity: 0.7;">$100.00 Limit</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-title">Node Status</span>
+                        <div class="stat-val" style="display:flex; align-items:center; gap:8px;">
+                            <span class="status-dot active"></span>
+                            <span style="font-size: 16px;">Healthy</span>
+                        </div>
+                        <span style="font-size: 11px; opacity: 0.7;">US-West Gateway</span>
                     </div>
                 </div>
-                
-                <div class="dashboard-card">
-                    <h3 class="dashboard-section-title">Quick Actions</h3>
-                    <div style="display: flex; gap: 12px; margin-top: 16px;">
-                        <button onclick="document.querySelector('[data-target=pane-workspace]').click();" class="btn-hero-primary" style="padding: 10px 20px; font-size: 14px; cursor: pointer;">Open Chat Workspace</button>
-                        <button onclick="document.querySelector('[data-target=pane-projects]').click();" class="btn-hero-secondary" style="padding: 10px 20px; font-size: 14px; cursor: pointer;">View Repositories</button>
+
+                <!-- Section 2: System Health & Cost Widget -->
+                <div class="premium-card">
+                    <div class="card-header-flex">
+                        <div>
+                            <h4 style="font-size: 16px; font-weight: 600;">Resource & Quota Usage Monitor</h4>
+                            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Real-time consumption parameters of token quotas and concurrent compute jobs.</p>
+                        </div>
+                        <span class="card-title-badge">Client Quota</span>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+                            <span>Token Limit (Monthly Allocation)</span>
+                            <span>74.5% (7.45M / 10M tokens)</span>
+                        </div>
+                        <div class="premium-progress-bar">
+                            <div class="premium-progress-fill" style="width: 74.5%;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+                            <span>Concurrent Agent Thread Limits</span>
+                            <span>40% (2 active / 5 max)</span>
+                        </div>
+                        <div class="premium-progress-bar">
+                            <div class="premium-progress-fill" style="width: 40%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Quick Action Launchpad -->
+                <div class="premium-card">
+                    <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">Quick Action Portal</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                        <button onclick="document.querySelector('[data-target=pane-workspace]').click();" class="btn-hero-primary" style="padding: 16px; text-align: center; border-radius: 8px; cursor: pointer; border: none; font-size: 13px;">
+                            🚀 Open AI Workspace
+                        </button>
+                        <button onclick="document.querySelector('[data-target=pane-projects]').click();" class="btn-hero-secondary" style="padding: 16px; text-align: center; border-radius: 8px; cursor: pointer; font-size: 13px;">
+                            📂 Manage Repositories
+                        </button>
+                        <button onclick="document.querySelector('[data-target=pane-profile]').click();" class="btn-hero-secondary" style="padding: 16px; text-align: center; border-radius: 8px; cursor: pointer; font-size: 13px;">
+                            🔑 Edit API Credentials
+                        </button>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+                    <!-- Section 4: Recent Activity Feed -->
+                    <div class="premium-card" style="margin-bottom: 0;">
+                        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">Recent Workspace Events</h4>
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <div style="display: flex; gap: 12px; font-size: 13px;">
+                                <div style="color: var(--accent-color);">✨</div>
+                                <div>
+                                    <span style="font-weight: 600;">AI Optimization Applied</span>
+                                    <span style="color: var(--text-muted); display: block; font-size: 11px;">15 mins ago • Modified utils.js</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 12px; font-size: 13px;">
+                                <div style="color: #10b981;">✓</div>
+                                <div>
+                                    <span style="font-weight: 600;">Repository Connected Successfully</span>
+                                    <span style="color: var(--text-muted); display: block; font-size: 11px;">2 hours ago • Connected client-react-web</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 12px; font-size: 13px;">
+                                <div style="color: var(--text-muted);">ℹ</div>
+                                <div>
+                                    <span style="font-weight: 600;">API Access Token Created</span>
+                                    <span style="color: var(--text-muted); display: block; font-size: 11px;">Yesterday • client-token-prod</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: AI Coding Tips & Recommendations -->
+                    <div class="premium-card" style="margin-bottom: 0;">
+                        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">Contextual AI Insights</h4>
+                        <div style="background: rgba(56,189,248,0.05); border: 1px solid rgba(56,189,248,0.15); border-radius: 8px; padding: 16px;">
+                            <span style="font-size: 12px; font-weight: 700; color: var(--accent-color); text-transform: uppercase;">Optimization Alert</span>
+                            <p style="font-size: 12.5px; color: var(--text-secondary); margin-top: 8px; line-height: 1.5;">
+                                We detected recursive dependencies in <code style="font-family:var(--font-mono); color:var(--text-primary);">src/utils/helpers.js</code>. Run the AI Refactor command to convert it to an iterative structure, saving up to 14% execution load.
+                            </p>
+                            <button onclick="document.querySelector('[data-target=pane-workspace]').click(); document.getElementById('chat-prompt-input').value = 'Refactor Helpers file recursive dependency'; " class="btn-hero-primary" style="margin-top: 12px; padding: 8px 12px; font-size: 11px; border-radius: 6px; border:none; cursor:pointer;">
+                                Fix in Workspace
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
             
             <!-- Pane 2: AI Workspace -->
             <section class="dashboard-pane" id="pane-workspace">
-                <div class="dashboard-card">
-                    <h3 class="dashboard-section-title">AI Chat Assistant</h3>
-                    <span style="font-size: 11px; color: var(--text-muted);">Ask a question or instruct the agent to modify code block.</span>
-                    
+                <div class="workspace-grid">
+                    <!-- Section 1: Code Explorer Sidebar -->
+                    <div class="file-tree-container">
+                        <h5 style="font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--text-muted); padding-bottom: 8px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05);">File Tree</h5>
+                        <div class="file-item active" onclick="loadMockFile('utils.js')">
+                            <span>📄</span> utils.js
+                        </div>
+                        <div class="file-item" onclick="loadMockFile('server.js')">
+                            <span>📄</span> server.js
+                        </div>
+                        <div class="file-item" onclick="loadMockFile('database.sql')">
+                            <span>📄</span> database.sql
+                        </div>
+                        <div class="file-item" onclick="loadMockFile('package.json')">
+                            <span>📄</span> package.json
+                        </div>
+                    </div>
+
+                    <!-- Section 2: AI Chat Assistant & Input Bar -->
                     <div class="workspace-chat-container">
                         <div class="chat-output-pane" id="workspace-chat-log">
                             <div class="chat-msg-row">
                                 <div class="chat-bubble ai">
-                                    Hello! I am your AI coding agent. How can I assist you with your project today?
+                                    Hello! I am your AI coding agent. Select a file on the left and enter instructions, or click one of the quick prompt chips below.
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Chat Chips -->
+                        <div class="chat-chips">
+                            <span class="chat-chip" onclick="triggerChipPrompt('Write a quicksort helper method')">🚀 Quicksort helper</span>
+                            <span class="chat-chip" onclick="triggerChipPrompt('Add validation hooks to server routes')">🔒 Security check</span>
+                            <span class="chat-chip" onclick="triggerChipPrompt('Write connection pool query script')">🔌 Database link</span>
+                            <span class="chat-chip" onclick="triggerChipPrompt('Optimize memory footprint in file parser')">💾 Optimize mem</span>
+                        </div>
                         
                         <div class="chat-input-bar">
-                            <input type="text" id="chat-prompt-input" class="form-input" style="flex-grow: 1;" placeholder="Instruct agent (e.g. Write a quicksort method)...">
+                            <input type="text" id="chat-prompt-input" class="form-input" style="flex-grow: 1; font-size:13px;" placeholder="Type instructions (e.g. Optimize this script)...">
                             <button id="chat-send-btn" class="btn-hero-primary" style="padding: 0 20px; font-size: 13px; font-weight: 600; cursor: pointer;">Send</button>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Proposed Diff & Editor Pane -->
+                    <div class="editor-pane-container">
+                        <div class="editor-header">
+                            <span id="active-editor-filename">utils.js - Active Node Code</span>
+                            <button onclick="copyCode()" class="btn-hero-secondary" style="padding: 4px 8px; font-size: 10px; border-radius: 4px;">Copy Code</button>
+                        </div>
+                        <pre class="editor-code" id="editor-code-pane">/* Click a file to load syntax highlight code */
+function formatResponse(data) {
+    if(!data) return { status: 400, body: 'Bad Request' };
+    return {
+        status: 200,
+        body: JSON.stringify(data),
+        timestamp: Date.now()
+    };
+}</pre>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-top: 20px;">
+                    <!-- Section 4: Model Selector & Parameters -->
+                    <div class="premium-card" style="margin-bottom:0;">
+                        <h4 style="font-size:15px; font-weight:600; margin-bottom:12px;">Agent Engine & Parameter Presets</h4>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:16px;">
+                            <div>
+                                <label style="display:block; font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase;">Select Model Target</label>
+                                <select class="form-input" id="model-select" style="width:100%;">
+                                    <option value="claude">Claude 3.5 Sonnet</option>
+                                    <option value="gemini">Gemini 1.5 Pro</option>
+                                    <option value="custom">Fine-Tuned Custom v2</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase;">Temperature (<span id="temp-val">0.2</span>)</label>
+                                <input type="range" class="form-input" style="width:100%;" min="0" max="1" step="0.1" value="0.2" id="temp-slider">
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase;">Max Output Tokens</label>
+                                <select class="form-input" style="width:100%;">
+                                    <option>2,048 Tokens</option>
+                                    <option selected>4,096 Tokens</option>
+                                    <option>8,192 Tokens</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Estimated Cost & Performance Widget -->
+                    <div class="premium-card" style="margin-bottom:0;">
+                        <h4 style="font-size:15px; font-weight:600; margin-bottom:12px;">Job Assessment</h4>
+                        <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:6px;">
+                            <span>Job Cost Projection:</span>
+                            <span style="font-weight:600; color:var(--accent-color);" id="est-cost">$0.004 / Prompt</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:13px;">
+                            <span>Context Tokens:</span>
+                            <span style="font-weight:600;">1,240 Input</span>
                         </div>
                     </div>
                 </div>
@@ -185,22 +952,106 @@
             
             <!-- Pane 3: My Projects -->
             <section class="dashboard-pane" id="pane-projects">
-                <div class="dashboard-card">
-                    <h3 class="dashboard-section-title">Connected Code Repositories</h3>
-                    <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 20px;">
-                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; font-size: 14px;">
+                <!-- Section 1: Repository Management Grid -->
+                <div class="premium-card">
+                    <h3 class="dashboard-section-title">Connected Source Repositories</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;" id="repo-list-container">
+                        <div style="display: flex; justify-content: space-between; align-items:center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; font-size: 14px;">
                             <div>
-                                <div style="font-weight:600;">antigravity-auth-api</div>
+                                <div style="font-weight:600; display:flex; align-items:center; gap:8px;">
+                                    <span>antigravity-auth-api</span>
+                                    <span style="background:rgba(16,185,129,0.1); color:#10b981; font-size:10px; padding:2px 6px; border-radius:4px;">Git Main</span>
+                                </div>
                                 <span style="font-size:11px; color:var(--text-muted);">Connected via local path | Last indexed 1h ago</span>
                             </div>
-                            <span style="color: #27c93f; font-weight: 500;">✓ Synced</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; font-size: 14px;">
-                            <div>
-                                <div style="font-weight:600;">client-react-web</div>
-                                <span style="font-size:11px; color:var(--text-muted);">Connected via github hook | Last indexed 3h ago</span>
+                            <div style="display:flex; align-items:center; gap:16px;">
+                                <span style="color: #10b981; font-weight: 500; font-size:13px;">✓ Synced</span>
+                                <button onclick="simulateScan('antigravity-auth-api')" class="btn-hero-secondary" style="padding: 4px 8px; font-size:11px;">Trigger Scan</button>
                             </div>
-                            <span style="color: #27c93f; font-weight: 500;">✓ Synced</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items:center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; font-size: 14px;">
+                            <div>
+                                <div style="font-weight:600; display:flex; align-items:center; gap:8px;">
+                                    <span>client-react-web</span>
+                                    <span style="background:rgba(16,185,129,0.1); color:#10b981; font-size:10px; padding:2px 6px; border-radius:4px;">GitHub Hook</span>
+                                </div>
+                                <span style="font-size:11px; color:var(--text-muted);">Connected via webhook | Last indexed 3h ago</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:16px;">
+                                <span style="color: #10b981; font-weight: 500; font-size:13px;">✓ Synced</span>
+                                <button onclick="simulateScan('client-react-web')" class="btn-hero-secondary" style="padding: 4px 8px; font-size:11px;">Trigger Scan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap: 24px;">
+                    <!-- Section 2: Connect Repository Console -->
+                    <div class="premium-card" style="margin-bottom:0;">
+                        <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Link New Codebase</h4>
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                            <div>
+                                <label style="display:block; font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase;">Repository Name</label>
+                                <input type="text" class="form-input" id="new-repo-name" style="width:100%;" placeholder="e.g. workspace-backend-api">
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase;">Integration Hook URL / Local Path</label>
+                                <input type="text" class="form-input" id="new-repo-path" style="width:100%;" placeholder="e.g. github.com/user/repo-api or D:/Projects/repo">
+                            </div>
+                            <button id="add-repo-btn" onclick="addNewRepo()" class="btn-hero-primary" style="padding: 12px; margin-top:8px; border:none; border-radius:8px; cursor:pointer;">
+                                Link & Initialize Codebase
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Indexing & Build Logs Terminal -->
+                    <div class="premium-card" style="margin-bottom:0;">
+                        <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Repository Vectorization Log Output</h4>
+                        <div class="terminal-panel" id="project-terminal">
+                            <div class="terminal-line info">[System] Vector log console initialized. Ready.</div>
+                            <div class="terminal-line">[Index] Index file cache matches checksum.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:24px; margin-top:24px;">
+                    <!-- Section 4: Collaborators & Invites -->
+                    <div class="premium-card" style="margin-bottom:0;">
+                        <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Project Access Team Control</h4>
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:8px;">
+                                <div>
+                                    <span style="font-size:13px; font-weight:600;">Developer User (You)</span>
+                                    <span style="display:block; font-size:11px; color:var(--text-muted);">Owner</span>
+                                </div>
+                                <span style="font-size:11px; padding:4px 8px; background:rgba(56,189,248,0.1); color:var(--accent-color); border-radius:4px;">Creator</span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:8px;">
+                                <div>
+                                    <span style="font-size:13px; font-weight:600;">Alex Rivera</span>
+                                    <span style="display:block; font-size:11px; color:var(--text-muted);">alex@company.com</span>
+                                </div>
+                                <span style="font-size:11px; padding:4px 8px; background:rgba(255,255,255,0.05); border-radius:4px;">Read/Write</span>
+                            </div>
+                            
+                            <div style="display:flex; gap:8px; margin-top:8px;">
+                                <input type="email" id="invite-email" class="form-input" style="flex-grow:1; font-size:12px;" placeholder="colleague@company.com">
+                                <button class="btn-hero-primary" onclick="inviteColleague()" style="padding:0 12px; font-size:12px; border:none; border-radius:6px; cursor:pointer;">Invite</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Repository Security Scan -->
+                    <div class="premium-card" style="margin-bottom:0;">
+                        <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Repository Security Compliance</h4>
+                        <div style="background:rgba(245,158,11,0.05); border:1px solid rgba(245,158,11,0.15); border-radius:8px; padding:16px;" id="security-warnings-box">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="status-dot warning"></span>
+                                <span style="font-size:12px; font-weight:700; color:#f59e0b; text-transform:uppercase;">Security Check Warnings</span>
+                            </div>
+                            <p style="font-size:12.5px; color:var(--text-secondary); margin-top:8px; line-height:1.5;">
+                                1 legacy package in <code style="font-family:var(--font-mono); color:var(--text-primary);">package.json</code> needs security patches. No environment token leaks detected.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -208,38 +1059,190 @@
             
             <!-- Pane 4: Chat History -->
             <section class="dashboard-pane" id="pane-history">
-                <div class="dashboard-card">
-                    <h3 class="dashboard-section-title">Previous Conversations</h3>
-                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px; font-size: 14px;">
-                        <div style="padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer;">
-                            <span style="font-weight: 600;">Fixing routing array out of bounds</span>
-                            <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px;">Completed 2 days ago • Claude 3.5 Sonnet</span>
+                <div style="display:grid; grid-template-columns: 1.5fr 1fr; gap:24px;">
+                    <div>
+                        <!-- Section 1: History Search & Filter Panel -->
+                        <div class="premium-card" style="padding:16px; margin-bottom:16px;">
+                            <div style="display:flex; gap:12px;">
+                                <input type="text" class="form-input" id="search-history" style="flex-grow:1; font-size:13px;" placeholder="Search previous coding sessions..." onkeyup="filterHistory()">
+                                <select class="form-input" id="history-filter-model" style="font-size:13px; width:auto;" onchange="filterHistory()">
+                                    <option value="all">All Models</option>
+                                    <option value="Claude 3.5 Sonnet">Claude 3.5</option>
+                                    <option value="Gemini 1.5 Pro">Gemini 1.5</option>
+                                </select>
+                            </div>
                         </div>
-                        <div style="padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer;">
-                            <span style="font-weight: 600;">Generating database adapters schemas</span>
-                            <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px;">Completed 4 days ago • Gemini 1.5 Pro</span>
+
+                        <!-- Section 2: Historic Conversations List -->
+                        <div class="premium-card">
+                            <h4 style="font-size:16px; font-weight:600; margin-bottom:16px;">Previous Conversations</h4>
+                            <div style="display: flex; flex-direction: column; gap: 12px;" id="history-list-box">
+                                <div class="history-item-block" style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; transition:all 0.2s;" onclick="previewHistory(0)">
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span style="font-weight: 600; font-size:13px;" class="history-item-title">Fixing routing array out of bounds</span>
+                                        <span style="font-size: 10px; background:rgba(56,189,248,0.1); color:var(--accent-color); padding:2px 6px; border-radius:4px;">Claude 3.5 Sonnet</span>
+                                    </div>
+                                    <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px;">Completed 2 days ago • 14 prompts exchange</span>
+                                </div>
+                                <div class="history-item-block" style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; transition:all 0.2s;" onclick="previewHistory(1)">
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span style="font-weight: 600; font-size:13px;" class="history-item-title">Generating database adapters schemas</span>
+                                        <span style="font-size: 10px; background:rgba(168,85,247,0.1); color:#c084fc; padding:2px 6px; border-radius:4px;">Gemini 1.5 Pro</span>
+                                    </div>
+                                    <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px;">Completed 4 days ago • 8 prompts exchange</span>
+                                </div>
+                                <div class="history-item-block" style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; transition:all 0.2s;" onclick="previewHistory(2)">
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <span style="font-weight: 600; font-size:13px;" class="history-item-title">Configure docker environment container layout</span>
+                                        <span style="font-size: 10px; background:rgba(56,189,248,0.1); color:var(--accent-color); padding:2px 6px; border-radius:4px;">Claude 3.5 Sonnet</span>
+                                    </div>
+                                    <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px;">Completed last week • 22 prompts exchange</span>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+
+                    <div>
+                        <!-- Section 3: Conversation Preview Sidebar -->
+                        <div class="premium-card">
+                            <h4 style="font-size:15px; font-weight:600; margin-bottom:12px;">Transcript Preview</h4>
+                            <div style="background: #0d0d0f; border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; height: 320px; overflow-y: auto; font-size: 12.5px; line-height: 1.5;" id="history-preview-box">
+                                <span style="color:var(--text-muted); font-style:italic;">Select a historic conversation on the left to see transcript preview.</span>
+                            </div>
+                        </div>
+
+                        <!-- Section 4: AI Stored Memory & Context Rules -->
+                        <div class="premium-card">
+                            <h4 style="font-size:15px; font-weight:600; margin-bottom:8px;">Shared AI Memory Rules</h4>
+                            <p style="font-size:11px; color:var(--text-muted); margin-bottom:12px;">Persistent facts remembered across sessions to maintain development context.</p>
+                            <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-color); border-radius:6px; padding:10px; font-size:12px; display:flex; flex-direction:column; gap:8px;">
+                                <div>• Using ES6 exports for backend routing elements.</div>
+                                <div>• Target workspace framework: vanilla frontend + Express backend.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Archive & Export Console -->
+                <div class="premium-card" style="margin-top:20px;">
+                    <h4 style="font-size:15px; font-weight:600; margin-bottom:12px;">Export & Backup Workspace Records</h4>
+                    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                        <button class="btn-hero-secondary" onclick="alert('Exporting chats as JSON...')">Backup Conversations (JSON)</button>
+                        <button class="btn-hero-secondary" onclick="alert('Exporting project workspace context...')">Export Context Settings</button>
+                        <button class="btn-hero-primary" onclick="alert('Preparing archive packet...')">Purge and Download DB</button>
                     </div>
                 </div>
             </section>
             
             <!-- Pane 5: Profile -->
             <section class="dashboard-pane" id="pane-profile">
-                <div class="dashboard-card">
-                    <h3 class="dashboard-section-title">User Account Details</h3>
-                    <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 16px;">
-                        <div>
-                            <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Full Name</span>
-                            <div style="font-size: 15px; font-weight: 600; margin-top: 4px;" id="profile-name">Developer User</div>
+                <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:24px;">
+                    <!-- Section 1: User Identity Card -->
+                    <div class="premium-card">
+                        <div class="card-header-flex">
+                            <h4 style="font-size: 16px; font-weight: 600;">Personal Information</h4>
+                            <span class="card-title-badge">Profile Card</span>
                         </div>
-                        <div>
-                            <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Email Address</span>
-                            <div style="font-size: 15px; font-weight: 600; margin-top: 4px;" id="profile-email">dev@company.com</div>
+                        
+                        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px;">
+                            <div style="width:64px; height:64px; border-radius:50%; background:var(--gradient-accent); color:#000; font-size:24px; font-weight:800; display:flex; align-items:center; justify-content:center;" id="profile-avatar-char">U</div>
+                            <div>
+                                <button class="btn-hero-secondary" style="padding:4px 8px; font-size:11px;" onclick="alert('Profile image upload mockup trigger')">Upload New Image</button>
+                                <span style="display:block; font-size:10px; color:var(--text-muted); margin-top:4px;">PNG or JPG. Max 2MB</span>
+                            </div>
                         </div>
-                        <div>
-                            <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Workspace Role</span>
-                            <div style="font-size: 15px; font-weight: 600; margin-top: 4px;" id="profile-role">Client Developer</div>
+
+                        <div class="profile-form-grid">
+                            <div>
+                                <label style="display:block; font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase;">Full Name</label>
+                                <input type="text" id="profile-name" class="form-input" style="width:100%; font-size:13px;" value="Developer User">
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase;">Email Address</label>
+                                <input type="email" id="profile-email" class="form-input" style="width:100%; font-size:13px;" value="dev@company.com">
+                            </div>
+                            <div style="grid-column: span 2;">
+                                <label style="display:block; font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase;">Workspace Role</label>
+                                <input type="text" id="profile-role" class="form-input" style="width:100%; font-size:13px;" value="Client Developer" readonly style="opacity:0.8;">
+                            </div>
                         </div>
+                        <button class="btn-hero-primary" onclick="saveProfile()" style="margin-top:16px; width:100%; border:none; padding:10px; border-radius:6px; font-size:13px; font-weight:600; cursor:pointer;">Save Account Changes</button>
+                    </div>
+
+                    <!-- Section 2: Client API Tokens Control -->
+                    <div class="premium-card">
+                        <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Client API Tokens</h4>
+                        <p style="font-size:12px; color:var(--text-secondary); margin-bottom:16px;">Generate secure integration keys to feed data to external CI/CD pipelines.</p>
+                        
+                        <div id="tokens-list-container">
+                            <div class="api-token-row">
+                                <div>
+                                    <span style="font-weight:600; font-size:13px;">client-token-prod</span>
+                                    <span style="font-family:var(--font-mono); color:var(--text-muted); display:block; font-size:10px;">sk_ai_client_*****************</span>
+                                </div>
+                                <button class="btn-hero-secondary" style="padding:4px 8px; font-size:10px;" onclick="copyTokenText('sk_ai_client_948fha8fh1h')">Copy</button>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; gap:8px; margin-top:12px;">
+                            <input type="text" id="new-token-name" class="form-input" style="flex-grow:1; font-size:12px;" placeholder="token-description-name">
+                            <button class="btn-hero-primary" onclick="generateNewToken()" style="padding:0 16px; font-size:12px; border:none; border-radius:6px; cursor:pointer;">Generate</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; margin-top:24px;">
+                    <!-- Section 3: Subscription & Billing Summary -->
+                    <div class="premium-card" style="margin-bottom:0;">
+                        <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Billing Cycle Usage Limits</h4>
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-color); border-radius:8px; padding:16px;">
+                            <div style="display:flex; justify-content:space-between; font-weight:600; font-size:14px; margin-bottom:8px;">
+                                <span>Professional Subscription Tier</span>
+                                <span style="color:var(--accent-color); font-weight:700;">$49 / Mo</span>
+                            </div>
+                            <span style="font-size:11px; color:var(--text-muted); display:block; margin-bottom:12px;">Renewal date: July 28, 2026</span>
+                            
+                            <span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); display:block; margin-bottom:4px;">Credit consumption usage</span>
+                            <div class="premium-progress-bar">
+                                <div class="premium-progress-fill" style="width: 42%;"></div>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); margin-top:4px;">
+                                <span>$42.10 Consumed</span>
+                                <span>$100.00 Max Quota</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Personalization & Theme Preferences -->
+                    <div class="premium-card" style="margin-bottom:0;">
+                        <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Workspace Theme Preferences</h4>
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                            <div>
+                                <label style="display:block; font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase;">Application Theme</label>
+                                <select class="form-input" style="width:100%; font-size:13px;" id="theme-select" onchange="switchAppTheme()">
+                                    <option value="dark">Stealth Dark Mode (Default)</option>
+                                    <option value="light">Solar Light Mode</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase;">Preferred LLM Primary Agent</label>
+                                <select class="form-input" style="width:100%; font-size:13px;">
+                                    <option>Claude 3.5 Sonnet</option>
+                                    <option>Gemini 1.5 Pro</option>
+                                    <option>Custom Tuned Node</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Account Danger Zone -->
+                <div class="premium-card" style="margin-top:24px; border-color:rgba(239,68,68,0.2); background:rgba(239,68,68,0.01);">
+                    <h4 style="font-size:16px; font-weight:600; color:#ef4444; margin-bottom:8px;">Danger Operations Hub</h4>
+                    <p style="font-size:12px; color:var(--text-secondary); margin-bottom:16px;">Irreversible settings that purge cached indices, revoke tokens, or dismantle accounts.</p>
+                    <div style="display:flex; gap:12px;">
+                        <button class="btn-hero-secondary" style="color:#ef4444; border-color:rgba(239,68,68,0.3);" onclick="purgeWorkspaceCache()">Purge Workspace Vector Index</button>
+                        <button class="btn-hero-secondary" style="color:#ef4444; border-color:rgba(239,68,68,0.3);" onclick="dismantleProfileAccount()">Dismantle Account Access</button>
                     </div>
                 </div>
             </section>
@@ -249,20 +1252,120 @@
     <!-- Scripts -->
     <script src="script.js"></script>
     <script>
-        // Personalize view based on current user session
+        // Tab switching routing
         (function() {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            if (currentUser) {
-                document.getElementById('username-display').textContent = currentUser.fullName;
-                document.getElementById('avatar-display').textContent = currentUser.fullName.charAt(0).toUpperCase();
+            const navButtons = document.querySelectorAll('.dashboard-nav-btn[data-target]');
+            const panes = document.querySelectorAll('.dashboard-pane');
+            const pageTitle = document.getElementById('page-title');
+            const pageSubtitle = document.getElementById('page-subtitle');
+
+            const tabMeta = {
+                'pane-overview': { title: 'Developer Workspace', subtitle: 'Write, edit, and orchestrate code scripts using AI agents.' },
+                'pane-workspace': { title: 'AI Workspace Playground', subtitle: 'Interact with AI models directly on indexed repositories.' },
+                'pane-projects': { title: 'Workspace Codebases', subtitle: 'Manage active repository synchronization hooks.' },
+                'pane-history': { title: 'Historical Prompts Audit', subtitle: 'Browse logs of previous AI assistant interactions.' },
+                'pane-profile': { title: 'Profile Settings Console', subtitle: 'Administer keys, security rules, and workspace preferences.' }
+            };
+
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.getAttribute('data-target');
+                    
+                    // Activate Button
+                    navButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Activate Pane
+                    panes.forEach(pane => {
+                        pane.classList.remove('active');
+                    });
+                    
+                    const activePane = document.getElementById(target);
+                    if(activePane) {
+                        activePane.classList.add('active');
+                    }
+
+                    // Update headers
+                    if(tabMeta[target]) {
+                        if(pageTitle) pageTitle.textContent = tabMeta[target].title;
+                        if(pageSubtitle) pageSubtitle.textContent = tabMeta[target].subtitle;
+                    }
+
+                    // Close Drawer on mobile
+                    const sidebar = document.getElementById('dashboard-sidebar');
+                    const overlay = document.getElementById('sidebar-overlay');
+                    const hamburger = document.getElementById('hamburger-menu-btn');
+                    if (sidebar && sidebar.classList.contains('open')) {
+                        sidebar.classList.remove('open');
+                        if(overlay) overlay.classList.remove('show');
+                        if(hamburger) hamburger.classList.remove('open');
+                    }
+                });
+            });
+
+            // Mobile menu toggling
+            const hamburger = document.getElementById('hamburger-menu-btn');
+            const sidebar = document.getElementById('dashboard-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const closeBtn = document.getElementById('sidebar-close-btn');
+
+            if (hamburger && sidebar && overlay) {
+                hamburger.addEventListener('click', () => {
+                    sidebar.classList.toggle('open');
+                    overlay.classList.toggle('show');
+                    hamburger.classList.toggle('open');
+                });
                 
-                // Profile pane fields
-                const profileName = document.getElementById('profile-name');
-                const profileEmail = document.getElementById('profile-email');
-                const profileRole = document.getElementById('profile-role');
-                if (profileName) profileName.textContent = currentUser.fullName;
-                if (profileEmail) profileEmail.textContent = currentUser.email;
-                if (profileRole) profileRole.textContent = `Client (${currentUser.role})`;
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('show');
+                    hamburger.classList.remove('open');
+                });
+
+                if(closeBtn) {
+                    closeBtn.addEventListener('click', () => {
+                        sidebar.classList.remove('open');
+                        overlay.classList.remove('show');
+                        hamburger.classList.remove('open');
+                    });
+                }
+            }
+        })();
+
+        // Retrieve current logged in user details from localStorage to personalize
+        (function() {
+            let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                const sUsername = sessionStorage.getItem('username');
+                if (sUsername) {
+                    currentUser = {
+                        fullName: sUsername.charAt(0).toUpperCase() + sUsername.slice(1),
+                        email: sUsername + '@company.com',
+                        role: 'Developer'
+                    };
+                }
+            }
+            if (currentUser) {
+                const uDisplays = ['username-display', 'profile-name'];
+                uDisplays.forEach(id => {
+                    const el = document.getElementById(id);
+                    if(el) el.textContent = currentUser.fullName;
+                    if(el && el.tagName === 'INPUT') el.value = currentUser.fullName;
+                });
+                
+                const initials = currentUser.fullName.charAt(0).toUpperCase();
+                const avatar = document.getElementById('avatar-display');
+                if(avatar) avatar.textContent = initials;
+                const avatarMob = document.getElementById('avatar-display-mobile');
+                if(avatarMob) avatarMob.textContent = initials;
+                const profileChar = document.getElementById('profile-avatar-char');
+                if(profileChar) profileChar.textContent = initials;
+
+                const emailField = document.getElementById('profile-email');
+                if(emailField) emailField.value = currentUser.email;
+
+                const roleField = document.getElementById('profile-role');
+                if(roleField) roleField.value = `Client (${currentUser.role || 'Developer'})`;
             }
             
             // Client workspace interactive mock chat
@@ -276,29 +1379,296 @@
                     if (e.key === 'Enter') runMockChat();
                 });
             }
-            
-            function runMockChat() {
-                const text = chatInput.value.trim();
-                if (!text) return;
-                
-                // Add User message
-                const userRow = document.createElement('div');
-                userRow.className = 'chat-msg-row user';
-                userRow.innerHTML = `<div class="chat-bubble user">${text}</div>`;
-                chatLog.appendChild(userRow);
-                chatInput.value = '';
-                chatLog.scrollTop = chatLog.scrollHeight;
-                
-                // Simulate AI response
-                setTimeout(() => {
-                    const aiRow = document.createElement('div');
-                    aiRow.className = 'chat-msg-row';
-                    aiRow.innerHTML = `<div class="chat-bubble ai">I've parsed your request: "${text}". Processing modifications... Done! Here is the optimization summary.</div>`;
-                    chatLog.appendChild(aiRow);
-                    chatLog.scrollTop = chatLog.scrollHeight;
-                }, 1000);
-            }
         })();
+
+        // Temperature slider cost estimation influence
+        const tempSlider = document.getElementById('temp-slider');
+        const tempVal = document.getElementById('temp-val');
+        const estCost = document.getElementById('est-cost');
+        if(tempSlider && tempVal && estCost) {
+            tempSlider.addEventListener('input', (e) => {
+                const val = e.target.value;
+                tempVal.textContent = val;
+                const calculated = (0.003 + (val * 0.005)).toFixed(4);
+                estCost.textContent = `$${calculated} / Prompt`;
+            });
+        }
+
+        // Mock files mapping
+        const mockFileContents = {
+            'utils.js': `function formatResponse(data) {\n    if(!data) return { status: 400, body: 'Bad Request' };\n    return {\n        status: 200,\n        body: JSON.stringify(data),\n        timestamp: Date.now()\n    };\n}`,
+            'server.js': `const express = require('express');\nconst app = express();\n\napp.use(express.json());\napp.get('/api/status', (req, res) => {\n    res.status(200).json({ ok: true, timestamp: Date.now() });\n});`,
+            'database.sql': `CREATE TABLE IF NOT EXISTS users (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    email VARCHAR(255) NOT NULL UNIQUE,\n    name VARCHAR(255) NOT NULL,\n    role VARCHAR(50) DEFAULT 'Developer'\n);`,
+            'package.json': `{\n  "name": "ai-assistant-client-workspace",\n  "version": "1.0.0",\n  "dependencies": {\n    "express": "^4.19.2",\n    "dotenv": "^16.4.5"\n  }\n}`
+        };
+
+        function loadMockFile(filename) {
+            document.querySelectorAll('.file-item').forEach(item => {
+                item.classList.remove('active');
+                if(item.textContent.includes(filename)) item.classList.add('active');
+            });
+            document.getElementById('active-editor-filename').textContent = `${filename} - Active Node Code`;
+            document.getElementById('editor-code-pane').textContent = mockFileContents[filename] || '';
+        }
+
+        function triggerChipPrompt(promptText) {
+            const chatInput = document.getElementById('chat-prompt-input');
+            if(chatInput) {
+                chatInput.value = promptText;
+                runMockChat();
+            }
+        }
+
+        function runMockChat() {
+            const chatInput = document.getElementById('chat-prompt-input');
+            const chatLog = document.getElementById('workspace-chat-log');
+            const text = chatInput.value.trim();
+            if (!text || !chatLog) return;
+            
+            // User message
+            const userRow = document.createElement('div');
+            userRow.className = 'chat-msg-row user';
+            userRow.innerHTML = `<div class="chat-bubble user">${text}</div>`;
+            chatLog.appendChild(userRow);
+            chatInput.value = '';
+            chatLog.scrollTop = chatLog.scrollHeight;
+            
+            // Simulating AI loading indicator
+            const loadRow = document.createElement('div');
+            loadRow.className = 'chat-msg-row';
+            loadRow.id = 'ai-loading-indicator';
+            loadRow.innerHTML = `<div class="chat-bubble ai"><span style="animation: pulse-glow 1.5s infinite;">⚡ AI is thinking...</span></div>`;
+            chatLog.appendChild(loadRow);
+            chatLog.scrollTop = chatLog.scrollHeight;
+
+            // Simulate response
+            setTimeout(() => {
+                const loader = document.getElementById('ai-loading-indicator');
+                if(loader) loader.remove();
+
+                const aiRow = document.createElement('div');
+                aiRow.className = 'chat-msg-row';
+                
+                let response = `I've analyzed your instructions: "${text}". Here is the optimized solution:`;
+                if(text.toLowerCase().includes('quicksort')) {
+                    response = `I've written a recursive Quicksort function and updated \`utils.js\` code buffer. Check it in the editor pane.`;
+                    document.getElementById('editor-code-pane').textContent = `function quicksort(arr) {\n    if (arr.length <= 1) return arr;\n    const pivot = arr[arr.length - 1];\n    const left = [], right = [];\n    for (let i = 0; i < arr.length - 1; i++) {\n        if (arr[i] < pivot) left.push(arr[i]);\n        else right.push(arr[i]);\n    }\n    return [...quicksort(left), pivot, ...quicksort(right)];\n}`;
+                } else if(text.toLowerCase().includes('security')) {
+                    response = `Adding validation hooks to Express endpoints. I've updated \`server.js\` code buffer.`;
+                    document.getElementById('editor-code-pane').textContent = `const express = require('express');\nconst app = express();\n\n// Added security hooks\nconst validateInputs = (req, res, next) => {\n    if (!req.body.email || !req.body.name) return res.status(400).json({ error: 'Missing params' });\n    next();\n};\n\napp.use(express.json());\napp.post('/api/users/add', validateInputs, (req, res) => {\n    res.status(200).json({ status: 'validated' });\n});`;
+                }
+
+                aiRow.innerHTML = `<div class="chat-bubble ai">${response}</div>`;
+                chatLog.appendChild(aiRow);
+                chatLog.scrollTop = chatLog.scrollHeight;
+            }, 1200);
+        }
+
+        // Copy editor code helper
+        function copyCode() {
+            const code = document.getElementById('editor-code-pane').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Code copied to clipboard successfully!');
+            });
+        }
+
+        // Link repository
+        function addNewRepo() {
+            const nameInput = document.getElementById('new-repo-name');
+            const pathInput = document.getElementById('new-repo-path');
+            const container = document.getElementById('repo-list-container');
+            const term = document.getElementById('project-terminal');
+            
+            if(!nameInput.value.trim() || !pathInput.value.trim()) {
+                alert('Please enter both name and path!');
+                return;
+            }
+            
+            const name = nameInput.value.trim();
+            const path = pathInput.value.trim();
+            
+            // Streaming build logs
+            if(term) {
+                term.innerHTML += `<div class="terminal-line info">[Trigger] Starting vector indexing for ${name}</div>`;
+                term.innerHTML += `<div class="terminal-line">[Index] Reading local config...</div>`;
+                term.scrollTop = term.scrollHeight;
+                
+                setTimeout(() => {
+                    term.innerHTML += `<div class="terminal-line">[Vectorize] Building chunks and token vectors (512 length)...</div>`;
+                    term.scrollTop = term.scrollHeight;
+                }, 800);
+
+                setTimeout(() => {
+                    term.innerHTML += `<div class="terminal-line info">[DB] Saved 42 chunks to local cluster database.</div>`;
+                    term.innerHTML += `<div class="terminal-line green" style="color:#10b981;">[Success] Vector index pipeline completed successfully.</div>`;
+                    term.scrollTop = term.scrollHeight;
+                    
+                    // Increment project overview count
+                    const projCount = document.getElementById('overview-project-count');
+                    if(projCount) {
+                        let currentCount = parseInt(projCount.textContent);
+                        projCount.textContent = currentCount + 1;
+                    }
+                }, 2000);
+            }
+
+            // Create row
+            const newRow = document.createElement('div');
+            newRow.style = 'display: flex; justify-content: space-between; align-items:center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; font-size: 14px;';
+            newRow.innerHTML = `
+                <div>
+                    <div style="font-weight:600; display:flex; align-items:center; gap:8px;">
+                        <span>${name}</span>
+                        <span style="background:rgba(16,185,129,0.1); color:#10b981; font-size:10px; padding:2px 6px; border-radius:4px;">Local Path</span>
+                    </div>
+                    <span style="font-size:11px; color:var(--text-muted);">Connected via: ${path} | Last indexed just now</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px;">
+                    <span style="color: #10b981; font-weight: 500; font-size:13px;">✓ Synced</span>
+                    <button onclick="simulateScan('${name}')" class="btn-hero-secondary" style="padding: 4px 8px; font-size:11px;">Trigger Scan</button>
+                </div>
+            `;
+            container.appendChild(newRow);
+            nameInput.value = '';
+            pathInput.value = '';
+        }
+
+        // Project triggering scan simulator
+        function simulateScan(repoName) {
+            const term = document.getElementById('project-terminal');
+            if(term) {
+                term.innerHTML += `<div class="terminal-line info">[Scan] Initiated code security vulnerabilities check on ${repoName}</div>`;
+                term.scrollTop = term.scrollHeight;
+                setTimeout(() => {
+                    term.innerHTML += `<div class="terminal-line">[Scan] Running vulnerability modules...</div>`;
+                    term.scrollTop = term.scrollHeight;
+                }, 1000);
+                setTimeout(() => {
+                    term.innerHTML += `<div class="terminal-line info">[Scan] Clean report. 0 warnings.</div>`;
+                    term.scrollTop = term.scrollHeight;
+                    alert(`Security scan on "${repoName}" completed with 0 warnings.`);
+                }, 2000);
+            }
+        }
+
+        // Invite coworker simulator
+        function inviteColleague() {
+            const emailInput = document.getElementById('invite-email');
+            if(emailInput && emailInput.value.trim()) {
+                alert(`Invite dispatched to "${emailInput.value.trim()}"! They will receive a credentials configuration email.`);
+                emailInput.value = '';
+            }
+        }
+
+        // Theme switching helper
+        function switchAppTheme() {
+            const theme = document.getElementById('theme-select').value;
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        // Save profile simulator
+        function saveProfile() {
+            const name = document.getElementById('profile-name').value.trim();
+            const email = document.getElementById('profile-email').value.trim();
+            if(!name || !email) {
+                alert('Name and Email fields cannot be blank.');
+                return;
+            }
+            const userObj = JSON.parse(localStorage.getItem('currentUser')) || {};
+            userObj.fullName = name;
+            userObj.email = email;
+            localStorage.setItem('currentUser', JSON.stringify(userObj));
+            
+            // Sync dashboard titles
+            document.getElementById('username-display').textContent = name;
+            const initials = name.charAt(0).toUpperCase();
+            document.getElementById('avatar-display').textContent = initials;
+            document.getElementById('avatar-display-mobile').textContent = initials;
+            document.getElementById('profile-avatar-char').textContent = initials;
+            
+            alert('Account changes saved successfully!');
+        }
+
+        // Generate client API Token simulator
+        function generateNewToken() {
+            const nameInput = document.getElementById('new-token-name');
+            if(!nameInput || !nameInput.value.trim()) {
+                alert('Please enter a description token name.');
+                return;
+            }
+            const container = document.getElementById('tokens-list-container');
+            const tokenStr = `sk_ai_client_` + Math.random().toString(36).substring(2, 15);
+            const tokenMockRow = document.createElement('div');
+            tokenMockRow.className = 'api-token-row';
+            tokenMockRow.innerHTML = `
+                <div>
+                    <span style="font-weight:600; font-size:13px;">${nameInput.value.trim()}</span>
+                    <span style="font-family:var(--font-mono); color:var(--text-muted); display:block; font-size:10px;">${tokenStr.substring(0, 15)}*****************</span>
+                </div>
+                <button class="btn-hero-secondary" style="padding:4px 8px; font-size:10px;" onclick="copyTokenText('${tokenStr}')">Copy</button>
+            `;
+            container.appendChild(tokenMockRow);
+            nameInput.value = '';
+            alert('New API Access Key created. Copy and store it immediately.');
+        }
+
+        function copyTokenText(token) {
+            navigator.clipboard.writeText(token).then(() => {
+                alert('API token copied to clipboard!');
+            });
+        }
+
+        // Purge Vector Index
+        function purgeWorkspaceCache() {
+            if(confirm('Warning! This will erase all vectorized context layers for connected files. Are you sure?')) {
+                alert('Cache purged. Workspace indexing resets.');
+            }
+        }
+
+        // Dismantle account
+        function dismantleProfileAccount() {
+            if(confirm('WARNING: Dismantling the account deletes all access structures and credentials. This cannot be undone.')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // History items rendering details mock
+        const mockTranscripts = [
+            `<strong>User:</strong> How do I fix the router crash error?<br><br><strong>AI Agent:</strong> The routing crash occurs because you access <code>req.params.id</code> in <code>utils.js</code> without verifying it exists in the routing array. Apply a condition check: <code>if(!req.params.id) return next()</code>.`,
+            `<strong>User:</strong> Generate schema adapter for SQL db.<br><br><strong>AI Agent:</strong> Created a configuration table for users: <code>CREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(255));</code>. Check query blocks.`,
+            `<strong>User:</strong> How to set docker container configuration?<br><br><strong>AI Agent:</strong> Create a dockerfile inside workspace node root:<br><pre style="background:#222; padding:8px; border-radius:4px; font-family:var(--font-mono)">FROM node:18\nWORKDIR /app\nCOPY . .\nRUN npm install\nEXPOSE 3000\nCMD ["node", "server.js"]</pre>`
+        ];
+
+        function previewHistory(index) {
+            document.querySelectorAll('.history-item-block').forEach((el, idx) => {
+                if(idx === index) el.style.borderColor = 'var(--accent-color)';
+                else el.style.borderColor = 'var(--border-color)';
+            });
+            document.getElementById('history-preview-box').innerHTML = mockTranscripts[index] || '';
+        }
+
+        // Search & Filter previous chats
+        function filterHistory() {
+            const query = document.getElementById('search-history').value.toLowerCase();
+            const filterModel = document.getElementById('history-filter-model').value;
+            const items = document.querySelectorAll('.history-item-block');
+            
+            items.forEach(item => {
+                const title = item.querySelector('.history-item-title').textContent.toLowerCase();
+                const modelBadge = item.querySelector('span[style*="background"]').textContent;
+                
+                const matchesQuery = title.includes(query);
+                const matchesModel = (filterModel === 'all') || (modelBadge.includes(filterModel));
+                
+                if(matchesQuery && matchesModel) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 </html>
