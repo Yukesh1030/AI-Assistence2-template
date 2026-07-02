@@ -132,9 +132,20 @@ function initNavigation() {
         }
     });
 
-    // Close mobile menu on clicking any navigation link
+    // Close mobile menu on clicking any navigation link & set active link highlight
+    const currentPath = window.location.pathname;
+    const pageName = currentPath.substring(currentPath.lastIndexOf("/") + 1);
     const mobileLinks = mobileDropdown.querySelectorAll('.mobile-nav-link');
+    
     mobileLinks.forEach(link => {
+        const linkHref = link.getAttribute('href');
+        // Highlight active nav link with underline
+        if (linkHref === pageName || (pageName === '' && linkHref === 'index.html')) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+
         link.addEventListener('click', () => {
             mobileDropdown.classList.add('hidden');
             openIcon.classList.remove('hidden');

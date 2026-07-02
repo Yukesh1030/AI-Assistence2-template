@@ -2776,6 +2776,13 @@ html[data-theme="light"] .glass-form-card {
     color: var(--text-primary);
 }
 
+.mobile-nav-link.active {
+    color: var(--text-primary) !important;
+    border-bottom: 2px solid var(--primary-color);
+    display: inline-block;
+    padding-bottom: 4px;
+}
+
 .mobile-download-cta {
     background-color: var(--primary-color);
     color: var(--primary-text-color);
