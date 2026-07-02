@@ -211,13 +211,50 @@
             display: none;
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .dashboard-pane.active {
             display: block;
+            animation: paneFadeIn 0.4s forwards cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .dashboard-pane.animating-out {
+            display: block;
+            animation: paneFadeOut 0.3s forwards cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes paneFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes paneFadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-15px); }
+        }
+
+        /* Text reveal animations */
+        .animate-text {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(8px);
+            animation: textReveal 0.5s forwards cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes textReveal {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll Animations hook */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+
+        .animate-on-scroll.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1) !important;
         }
 
         /* Cards and Hover Transitions */
@@ -467,10 +504,36 @@
             box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
         }
 
-        .chart-label {
-            font-size: 10px;
-            color: var(--text-muted);
-            margin-top: 6px;
+        /* Responsive Utility Grids */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .grid-3col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+        .grid-1-12col {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 24px;
+        }
+        .grid-12-1col {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+        }
+        .grid-15-1col {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 24px;
+        }
+        .grid-2-1col {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
         }
 
         /* Responsive Design System overrides */
@@ -539,6 +602,24 @@
         @media (max-width: 768px) {
             .stats-grid-5 {
                 grid-template-columns: 1fr;
+            }
+
+            .grid-2col, .grid-3col, .grid-1-12col, .grid-12-1col, .grid-15-1col, .grid-2-1col {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
+
+            .dashboard-header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 16px !important;
+            }
+
+            .dashboard-user-profile {
+                width: 100% !important;
+                justify-content: flex-start !important;
+                padding-top: 12px !important;
+                border-top: 1px solid var(--border-color) !important;
             }
 
             .admin-table-container {
@@ -726,7 +807,7 @@
                     </div>
                 </div>
 
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px;">
+                <div class="grid-2col">
                     <!-- Section 3: Pending Approvals Worklist -->
                     <div class="premium-card" style="margin-bottom:0;">
                         <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Admin Approval Worklist</h4>
@@ -831,7 +912,7 @@
                     </div>
                 </div>
 
-                <div style="display:grid; grid-template-columns:1fr 1.2fr; gap:24px;">
+                <div class="grid-1-12col">
                     <!-- Section 2: Invite User / Team Provisioning Console -->
                     <div class="premium-card" style="margin-bottom:0;">
                         <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Provision Developer Access</h4>
@@ -881,7 +962,7 @@
                     </div>
                 </div>
 
-                <div style="display:grid; grid-template-columns:1.2fr 1fr; gap:24px; margin-top:24px;">
+                <div class="grid-12-1col" style="margin-top:24px;">
                     <!-- Section 4: Suspended & Locked Accounts Archive -->
                     <div class="premium-card" style="margin-bottom:0;">
                         <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Suspended & Locked Accounts</h4>
@@ -910,7 +991,7 @@
             
             <!-- Pane 3: AI Models -->
             <section class="dashboard-pane" id="pane-models">
-                <div style="display:grid; grid-template-columns: 1.5fr 1fr; gap:24px;">
+                <div class="grid-15-1col">
                     <div>
                         <!-- Section 1: Global Models Toggle Matrix -->
                         <div class="premium-card">
@@ -1066,7 +1147,7 @@
                     </div>
                 </div>
 
-                <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:24px;">
+                <div class="grid-12-1col">
                     <!-- Section 2: Latency & Queue Times Graph -->
                     <div class="premium-card" style="margin-bottom:0;">
                         <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Weekly Network Latency Ranges</h4>
@@ -1101,7 +1182,7 @@
                     </div>
                 </div>
 
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; margin-top:24px;">
+                <div class="grid-2col" style="margin-top:24px;">
                     <!-- Section 4: Most Active Repositories Analytics -->
                     <div class="premium-card" style="margin-bottom:0;">
                         <h4 style="font-size:15px; font-weight:600; margin-bottom:12px;">Top Synced Codebases (Calls Volume)</h4>
@@ -1157,7 +1238,7 @@
                     </div>
                 </div>
 
-                <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:24px;">
+                <div class="grid-12-1col">
                     <!-- Section 2: Seat Quota Management -->
                     <div class="premium-card" style="margin-bottom:0;">
                         <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Available Team Seats Usage</h4>
@@ -1193,7 +1274,7 @@
                     </div>
                 </div>
 
-                <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:24px; margin-top:24px;">
+                <div class="grid-1-12col" style="margin-top:24px;">
                     <!-- Section 4: Organization Payment Method Registry -->
                     <div class="premium-card" style="margin-bottom:0;">
                         <h4 style="font-size:15px; font-weight:600; margin-bottom:12px;">Payment Instrument registry</h4>
@@ -1230,7 +1311,7 @@
             
             <!-- Pane 6: Settings -->
             <section class="dashboard-pane" id="pane-settings">
-                <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:24px;">
+                <div class="grid-1-12col">
                     <!-- Section 1: Zero Data Retention Policy -->
                     <div class="premium-card">
                         <div class="card-header-flex">
@@ -1272,7 +1353,7 @@
                     </div>
                 </div>
 
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; margin-top:24px;">
+                <div class="grid-2col" style="margin-top:24px;">
                     <!-- Section 3: Security & Session Logins Whitelist -->
                     <div class="premium-card" style="margin-bottom:0;">
                         <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Admin Console Whitelist Rules</h4>
@@ -1339,28 +1420,64 @@
                 'pane-settings': { title: 'System Security Settings', subtitle: 'Set whitelists, notification webhooks, and security rules.' }
             };
 
+            // IntersectionObserver for scroll animations
+            let observer;
+            function triggerScrollAnimations() {
+                if (observer) observer.disconnect();
+                
+                observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.05
+                });
+
+                document.querySelectorAll('.premium-card, .stat-card, .terminal-panel, .chart-mockup, .grid-2col, .grid-3col, .grid-1-12col, .grid-12-1col, .grid-15-1col, .grid-2-1col').forEach(el => {
+                    el.classList.add('animate-on-scroll');
+                    observer.observe(el);
+                });
+            }
+
+            // Run initial scroll animations
+            triggerScrollAnimations();
+
             navButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const target = btn.getAttribute('data-target');
+                    const nextActive = document.getElementById(target);
+                    const currentActive = document.querySelector('.dashboard-pane.active');
                     
+                    if (currentActive === nextActive) return;
+
                     // Activate Button
                     navButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
 
-                    // Activate Pane
-                    panes.forEach(pane => {
-                        pane.classList.remove('active');
-                    });
-                    
-                    const activePane = document.getElementById(target);
-                    if(activePane) {
-                        activePane.classList.add('active');
+                    // Out and In Pane transition
+                    if (currentActive) {
+                        currentActive.classList.add('animating-out');
+                        currentActive.classList.remove('active');
+                        
+                        setTimeout(() => {
+                            currentActive.classList.remove('animating-out');
+                            if(nextActive) {
+                                nextActive.classList.add('active');
+                                triggerScrollAnimations();
+                            }
+                        }, 250);
+                    } else if (nextActive) {
+                        nextActive.classList.add('active');
+                        triggerScrollAnimations();
                     }
 
-                    // Update headers
+                    // Update headers with text animations
                     if(tabMeta[target]) {
-                        if(pageTitle) pageTitle.textContent = tabMeta[target].title;
-                        if(pageSubtitle) pageSubtitle.textContent = tabMeta[target].subtitle;
+                        if(pageTitle) pageTitle.innerHTML = `<span class="animate-text">${tabMeta[target].title}</span>`;
+                        if(pageSubtitle) pageSubtitle.innerHTML = `<span class="animate-text" style="animation-delay: 0.08s;">${tabMeta[target].subtitle}</span>`;
                     }
 
                     // Trigger chart animation if changing to Analytics

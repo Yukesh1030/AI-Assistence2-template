@@ -210,13 +210,50 @@
             display: none;
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .dashboard-pane.active {
             display: block;
+            animation: paneFadeIn 0.4s forwards cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .dashboard-pane.animating-out {
+            display: block;
+            animation: paneFadeOut 0.3s forwards cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes paneFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes paneFadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-15px); }
+        }
+
+        /* Text reveal animations */
+        .animate-text {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(8px);
+            animation: textReveal 0.5s forwards cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes textReveal {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll Animations hook */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+
+        .animate-on-scroll.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1) !important;
         }
 
         /* Cards and Hover Transitions */
@@ -469,6 +506,38 @@
             margin-bottom: 24px;
         }
 
+        /* Responsive Utility Grids */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .grid-3col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+        .grid-1-12col {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 24px;
+        }
+        .grid-12-1col {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+        }
+        .grid-15-1col {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 24px;
+        }
+        .grid-2-1col {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
         /* Logs / Terminal Styling */
         .terminal-panel {
             background-color: #050507;
@@ -585,6 +654,24 @@
         @media (max-width: 768px) {
             .stats-grid-5 {
                 grid-template-columns: 1fr;
+            }
+
+            .grid-2col, .grid-3col, .grid-1-12col, .grid-12-1col, .grid-15-1col, .grid-2-1col {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
+
+            .dashboard-header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 16px !important;
+            }
+
+            .dashboard-user-profile {
+                width: 100% !important;
+                justify-content: flex-start !important;
+                padding-top: 12px !important;
+                border-top: 1px solid var(--border-color) !important;
             }
 
             .workspace-grid {
@@ -800,7 +887,7 @@
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+                <div class="grid-2col" style="margin-top: 24px;">
                     <!-- Section 4: Recent Activity Feed -->
                     <div class="premium-card" style="margin-bottom: 0;">
                         <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">Recent Workspace Events</h4>
@@ -907,11 +994,11 @@ function formatResponse(data) {
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-top: 20px;">
+                <div class="grid-2-1col" style="margin-top: 20px;">
                     <!-- Section 4: Model Selector & Parameters -->
                     <div class="premium-card" style="margin-bottom:0;">
                         <h4 style="font-size:15px; font-weight:600; margin-bottom:12px;">Agent Engine & Parameter Presets</h4>
-                        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:16px;">
+                        <div class="grid-3col">
                             <div>
                                 <label style="display:block; font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase;">Select Model Target</label>
                                 <select class="form-input" id="model-select" style="width:100%;">
@@ -985,7 +1072,7 @@ function formatResponse(data) {
                     </div>
                 </div>
 
-                <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap: 24px;">
+                <div class="grid-1-12col">
                     <!-- Section 2: Connect Repository Console -->
                     <div class="premium-card" style="margin-bottom:0;">
                         <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Link New Codebase</h4>
@@ -1014,7 +1101,7 @@ function formatResponse(data) {
                     </div>
                 </div>
 
-                <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:24px; margin-top:24px;">
+                <div class="grid-12-1col" style="margin-top:24px;">
                     <!-- Section 4: Collaborators & Invites -->
                     <div class="premium-card" style="margin-bottom:0;">
                         <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Project Access Team Control</h4>
@@ -1059,7 +1146,7 @@ function formatResponse(data) {
             
             <!-- Pane 4: Chat History -->
             <section class="dashboard-pane" id="pane-history">
-                <div style="display:grid; grid-template-columns: 1.5fr 1fr; gap:24px;">
+                <div class="grid-15-1col">
                     <div>
                         <!-- Section 1: History Search & Filter Panel -->
                         <div class="premium-card" style="padding:16px; margin-bottom:16px;">
@@ -1136,7 +1223,7 @@ function formatResponse(data) {
             
             <!-- Pane 5: Profile -->
             <section class="dashboard-pane" id="pane-profile">
-                <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:24px;">
+                <div class="grid-1-12col">
                     <!-- Section 1: User Identity Card -->
                     <div class="premium-card">
                         <div class="card-header-flex">
@@ -1191,7 +1278,7 @@ function formatResponse(data) {
                     </div>
                 </div>
 
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; margin-top:24px;">
+                <div class="grid-2col" style="margin-top:24px;">
                     <!-- Section 3: Subscription & Billing Summary -->
                     <div class="premium-card" style="margin-bottom:0;">
                         <h4 style="font-size:16px; font-weight:600; margin-bottom:12px;">Billing Cycle Usage Limits</h4>
@@ -1267,28 +1354,64 @@ function formatResponse(data) {
                 'pane-profile': { title: 'Profile Settings Console', subtitle: 'Administer keys, security rules, and workspace preferences.' }
             };
 
+            // IntersectionObserver for scroll animations
+            let observer;
+            function triggerScrollAnimations() {
+                if (observer) observer.disconnect();
+                
+                observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.05
+                });
+
+                document.querySelectorAll('.premium-card, .stat-card, .terminal-panel, .chart-mockup, .grid-2col, .grid-3col, .grid-1-12col, .grid-12-1col, .grid-15-1col, .grid-2-1col').forEach(el => {
+                    el.classList.add('animate-on-scroll');
+                    observer.observe(el);
+                });
+            }
+
+            // Run initial scroll animations
+            triggerScrollAnimations();
+
             navButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const target = btn.getAttribute('data-target');
+                    const nextActive = document.getElementById(target);
+                    const currentActive = document.querySelector('.dashboard-pane.active');
                     
+                    if (currentActive === nextActive) return;
+
                     // Activate Button
                     navButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
 
-                    // Activate Pane
-                    panes.forEach(pane => {
-                        pane.classList.remove('active');
-                    });
-                    
-                    const activePane = document.getElementById(target);
-                    if(activePane) {
-                        activePane.classList.add('active');
+                    // Out and In Pane transition
+                    if (currentActive) {
+                        currentActive.classList.add('animating-out');
+                        currentActive.classList.remove('active');
+                        
+                        setTimeout(() => {
+                            currentActive.classList.remove('animating-out');
+                            if(nextActive) {
+                                nextActive.classList.add('active');
+                                triggerScrollAnimations();
+                            }
+                        }, 250);
+                    } else if (nextActive) {
+                        nextActive.classList.add('active');
+                        triggerScrollAnimations();
                     }
 
-                    // Update headers
+                    // Update headers with text animations
                     if(tabMeta[target]) {
-                        if(pageTitle) pageTitle.textContent = tabMeta[target].title;
-                        if(pageSubtitle) pageSubtitle.textContent = tabMeta[target].subtitle;
+                        if(pageTitle) pageTitle.innerHTML = `<span class="animate-text">${tabMeta[target].title}</span>`;
+                        if(pageSubtitle) pageSubtitle.innerHTML = `<span class="animate-text" style="animation-delay: 0.08s;">${tabMeta[target].subtitle}</span>`;
                     }
 
                     // Close Drawer on mobile
